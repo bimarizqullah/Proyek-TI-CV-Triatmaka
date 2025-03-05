@@ -20,9 +20,6 @@
                 <label class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" required>
             </div>
-            <div class="mb-3">
-                <a href="#">Lupa Password?</a>
-            </div>
             <button type="submit" class="btn-submit">Masuk</button>
         </form>
     </div>
