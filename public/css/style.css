@@ -1,0 +1,75 @@
+/* ===== Background halaman full screen ===== */
+body {
+    background: url('/images/bg.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== Container utama login ===== */
+.login-container {
+    width: 700px;
+    display: flex;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* ===== Bagian kiri (Logo & Branding) ===== */
+.login-left {
+    width: 50%;
+    background: linear-gradient(to right, #A1DD70, #FCD535);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-left img {
+    width: 200px;
+}
+
+.login-left h3 {
+    color: #333;
+    margin-top: 10px;
+}
+
+/* ===== Bagian kanan (Form Login) ===== */
+.login-right {
+    width: 50%;
+    background: white;
+    padding: 30px;
+}
+
+.login-right h4 {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-right .form-control {
+    border-radius: 5px;
+}
+
+.login-right .btn-submit {
+    background: #FCD535;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.login-right .btn-submit:hover {
+    background: #E5B600;
+}
+
+.login-right a {
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    text-align: right;
+}
