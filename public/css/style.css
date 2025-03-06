@@ -1,4 +1,4 @@
-/* ===== Background halaman full screen ===== */
+/* ===== Background halaman Login ===== */
 body {
     background: url('/images/bg.jpg') no-repeat center center;
     background-size: cover;
@@ -81,6 +81,89 @@ body {
 }
 
 .login-right a {
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    text-align: right;
+}
+
+/* Halaman Forgot */
+
+.forgot-container {
+    width: 1200px;
+    height: 600px;
+    display: flex;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* ===== Bagian kiri (Logo & Branding) ===== */
+.forgot-left {
+    width: 50%;
+    background: linear-gradient(to left, #83cc47, #FCD535);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.forgot-left img {
+    width: 250px;
+}
+
+/* ===== Bagian kanan (Form Login) ===== */
+.forgot-right {
+    width: 50%;
+    background: white;
+    padding: 70px;
+}
+
+.forgot-right h1 {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+
+.forgot-right .form-control {
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+
+}
+
+.forgot-right .btn-submit {
+    background: #FCD535;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 30px;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
+}
+
+.forgot-right .btn-cancel {
+    background: #ff4747;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 30px;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
+}
+
+.forgot-right .btn-submit:hover {
+    background: #E5B600;
+}
+
+.forgot-right .btn-cancel:hover {
+    background: #ca1616;
+}
+
+.forgot-right a {
     text-decoration: none;
     font-size: 20px;
     display: block;
