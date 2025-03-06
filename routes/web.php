@@ -3,10 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+// Rute untuk login
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth');
+// Rute yang memerlukan autentikasi
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
