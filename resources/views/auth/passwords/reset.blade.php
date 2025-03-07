@@ -20,7 +20,7 @@
             </ul>
         </div>
     @endif
-        <form action="{{ url('password/reset') }}" method="POST">
+        <form action="{{ url('admin/password/reset') }}" method="POST">
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">
             <div class="mb-3">
@@ -41,15 +41,3 @@
 </div>
 @endsection
 
-
-
-
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif

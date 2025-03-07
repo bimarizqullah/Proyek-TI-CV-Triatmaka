@@ -14,7 +14,7 @@
         @if (session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
         @endif
-        <form action="{{ url('password/forgot') }}" method="POST">
+        <form action="{{ url('admin/password/forgot') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label class="form-label">Email</label>
