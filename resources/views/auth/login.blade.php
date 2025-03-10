@@ -3,6 +3,7 @@
 @section('content')
 <div class="background-blur"></div>
 <div class="login-container">
+   
     <!-- Bagian Kiri (Logo & Branding) -->
     <div class="login-left">
         <img src="{{ asset('images/logo.png') }}" alt="Logo">
@@ -11,6 +12,11 @@
     <!-- Bagian Kanan (Form Login) -->
     <div class="login-right">
         <h1>LOGIN</h1>
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('login') }}" method="POST">
             @csrf
             <div class="mb-3">
