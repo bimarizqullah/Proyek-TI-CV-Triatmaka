@@ -25,13 +25,22 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <a href="{{ route('password.forgot') }}">Lupa Password?</a>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" class="form-control" required>
+                    <button type="button" class="btn-show-password" id="togglePassword">
+                        👁
+                    </button>
+                </div>
             </div>
             <button type="submit" class="btn-submit">Masuk</button>
         </form>
     </div>
 </div>
+
+<script>
+document.getElementById('togglePassword').addEventListener('click', function () {
+    let passwordField = document.getElementById('password');
+    passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+});
+</script>
 @endsection

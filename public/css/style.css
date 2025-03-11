@@ -45,7 +45,7 @@ body {
 }
 
 /* ===== Container utama login ===== */
-.login-container, .forgot-container, .reset-container {
+.login-container {
     width: 90%;
     max-width: 1200px;
     height: 600px;
@@ -59,7 +59,7 @@ body {
 }
 
 /* ===== Bagian kiri (Logo & Branding) ===== */
-.login-left, .forgot-left, .reset-left {
+.login-left {
     width: 50%;
     background: linear-gradient(to left, #83cc47, #FCD535);
     display: flex;
@@ -69,20 +69,22 @@ body {
     padding: 20px;
 }
 
-.login-left img, .forgot-left img, .reset-left img {
+.login-left img {
     width: 200px;
 }
 
 /* ===== Bagian kanan (Form Login) ===== */
-.login-right, .forgot-right, .reset-right {
+.login-right{
     width: 50%;
     background: white;
     padding: 50px;
 }
 
-.login-right h1, .forgot-right h1, .reset-right h1 {
+.login-right h1 {
+
     font-weight: bold;
     text-align: center;
+    margin-top: 70px;
     margin-bottom: 30px;
 }
 
@@ -91,34 +93,46 @@ body {
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
-.btn-submit, .btn-cancel {
+.btn-submit {
     width: 100%;
     padding: 12px;
     border-radius: 5px;
     font-size: 18px;
-    font-weight: bold;
+    /* font-weight: bold; */
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
 }
 
 .btn-submit {
+    
     background: #FCD535;
     color: white;
     border: none;
-}
-
-.btn-cancel {
-    background: #ff4747;
-    color: white;
-    border: none;
-    margin-top: 15px;
 }
 
 .btn-submit:hover {
     background: #E5B600;
 }
 
-.btn-cancel:hover {
-    background: #ca1616;
+.input-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input-group input {
+    flex: 1;
+    padding-right: 40px; /* Beri ruang untuk tombol 👁 */
+}
+
+.btn-show-password {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    color: #333;
 }
 
 a {
@@ -156,6 +170,7 @@ a {
 /* Ukuran untuk layar sangat kecil (HP) */
 @media (max-width: 576px) {
     .login-container, .forgot-container, .reset-container {
+        display: flex;
         flex-direction: column; 
         align-items: center;
     }
@@ -167,7 +182,7 @@ a {
 
     .login-right, .forgot-right, .reset-right {
         width: 100%;
-        padding: 68px;
+        padding: 28px;
     }
 
     .login-left img, .forgot-left img, .reset-left img {
@@ -191,4 +206,29 @@ a {
     a {
         font-size: 16px;
     }
+}
+
+
+/* Dashboard - Frontend */
+
+.dashboard-container {
+    justify-content: center;
+    align-items: center;
+    background: white;
+    width: 90%;
+    max-width: 1200px;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap; /* Membuat elemen dalam flex bisa turun ke bawah */
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.dashboard-container h2{
+    font-weight: bold;
+    margin-top: 10px;
+    
 }
