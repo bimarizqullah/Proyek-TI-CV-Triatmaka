@@ -230,5 +230,6 @@ a {
 .dashboard-container h2{
     font-weight: bold;
     margin-top: 10px;
+    text-align: center;
     
 }
