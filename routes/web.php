@@ -15,6 +15,6 @@ Route::post('admin/logout', [AuthController::class, 'logout'])->name('logout')->
 // Rute yang memerlukan autentikasi
 Route::middleware(['auth'])->group(function () {
     Route::get('admin/dashboard', function () {
-        return view('dashboard');
+        return view('backend.dashboard');
     })->name('dashboard');
 });
