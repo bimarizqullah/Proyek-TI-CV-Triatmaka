@@ -10,232 +10,45 @@
     }
 }
 
-@keyframes fadeOut {
+
+@keyframes fadeIn-X {
     from {
-        opacity: 1;
-        transform: translateY(0);
+        opacity: 0;
+        transform: translateX(-20px);
     }
     to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInX {
+    from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
-/* ===== Background halaman Login ===== */
-body {
-    background: url('/images/bg.jpg') no-repeat center center;
-    background-size: cover;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-}
-
-.background-blur {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('/images/bg.jpg') no-repeat center center;
-    background-size: cover;
-    filter: blur(8px);
-    z-index: -1;
-}
-
-/* ===== Container utama login ===== */
 .login-container {
-    width: 90%;
-    max-width: 1200px;
-    height: 600px;
-    display: flex;
-    flex-wrap: wrap; /* Membuat elemen dalam flex bisa turun ke bawah */
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
-    overflow: hidden;
-    opacity: 0;
-    animation: fadeIn 0.8s ease-out forwards;
+    margin: 15px;
+    animation: fadeIn 1.0s forwards;
 }
 
-/* ===== Bagian kiri (Logo & Branding) ===== */
-.login-left {
-    width: 50%;
-    background: linear-gradient(to left, #83cc47, #FCD535);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+.side-bar, .announce-container {
+    animation: fadeIn-X 0.8s forwards;
 }
 
-.login-left img {
-    width: 200px;
+.announcement, .logo {
+    animation: fadeInX 2.5s forwards;
 }
 
-/* ===== Bagian kanan (Form Login) ===== */
-.login-right{
-    width: 50%;
-    background: white;
-    padding: 50px;
-}
-
-.login-right h1 {
-
-    font-weight: bold;
-    text-align: center;
-    margin-top: 70px;
-    margin-bottom: 30px;
-}
-
-.form-control {
+.nav-item:hover {
     border-radius: 5px;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
-}
-
-.btn-submit {
-    width: 100%;
-    padding: 12px;
-    border-radius: 5px;
-    font-size: 18px;
-    /* font-weight: bold; */
-    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
-    margin-top: 50px;
-}
-
-.btn-submit {
-    
-    background: #FCD535;
-    color: white;
-    border: none;
-}
-
-.btn-submit:hover {
-    background: #E5B600;
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.input-group input {
-    flex: 1;
-    padding-right: 40px; /* Beri ruang untuk tombol 👁 */
-}
-
-.btn-show-password {
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    font-size: 18px;
-    color: #333;
-}
-
-a {
-    text-decoration: none;
-    font-size: 18px;
-    display: block;
-    text-align: right;
-    margin-top: 10px;
-}
-
-/* ====================== RESPONSIVE DESIGN ====================== */
-
-/* Ukuran untuk layar kecil (Tablet) */
-@media (max-width: 992px) {
-    .login-left, .forgot-left, .reset-left {
-        width: 100%; 
-        padding: 30px;
-    }
-
-    .login-right, .forgot-right, .reset-right {
-        width: 100%;
-        padding: 40px;
-    }
-
-    .login-left img, .forgot-left img, .reset-left img {
-        width: 150px;
-    }
-
-    .btn-submit, .btn-cancel {
-        font-size: 16px;
-        padding: 10px;
-    }
-}
-
-/* Ukuran untuk layar sangat kecil (HP) */
-@media (max-width: 576px) {
-    .login-container, .forgot-container, .reset-container {
-        display: flex;
-        flex-direction: column; 
-        align-items: center;
-    }
-
-    .login-left, .forgot-left, .reset-left {
-        width: 100%;
-        padding: 20px;
-    }
-
-    .login-right, .forgot-right, .reset-right {
-        width: 100%;
-        padding: 28px;
-    }
-
-    .login-left img, .forgot-left img, .reset-left img {
-        width: 120px;
-    }
-
-    h1 {
-        font-size: 22px;
-        margin-bottom: 20px;
-    }
-
-    .form-control {
-        font-size: 16px;
-    }
-
-    .btn-submit, .btn-cancel {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    a {
-        font-size: 16px;
-    }
+    background-color: #d1a000;
 }
 
 
-/* Dashboard - Frontend */
-
-.dashboard-container {
-    align-content: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    width: 60%;
-    max-width: 1200px;
-    height: 600px;
-    flex-wrap: wrap; /* Membuat elemen dalam flex bisa turun ke bawah */
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
-    overflow: hidden;
-    opacity: 0;
-    animation: fadeIn 0.8s ease-out forwards;
-}
-
-.top-content{
-    font-weight: bold;
-    margin: 60px;
-}
-
-.bottom-content {
-    font-weight: bold;
-    margin: 60px;
-
-
-}
