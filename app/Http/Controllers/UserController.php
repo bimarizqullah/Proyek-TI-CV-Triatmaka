@@ -16,45 +16,51 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        return view('backend.users.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
+            'status' => 'required|in:aktif,non-aktif',
         ]);
-
+    
         User::create([
             'name' => $request->name,
-            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'status' => $request->status,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User added successfully');
+        return redirect()->route('backend.dashboard')->with('success', 'User added successfully');
     }
 
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        return view('backend.users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|unique:users,username,' . $user->id,
-            'email' => 'required|email|unique:users,email,' . $user->id,
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'status' => 'required|in:aktif,non-aktif',
+    ]);
 
-        $user->update($request->all());
+    $user->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'status' => $request->status,
+    ]);
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully');
-    }
+    return redirect()->route('backend.dashboard')->with('success', 'User updated successfully');
+}
+
+
 
     public function destroy(User $user)
     {

@@ -15,28 +15,24 @@
     @endif
 
     <div class="card p-4">
-        <form action="{{ route('users.store') }}" method="POST">
+        <form action="{{ route('users.update', $user->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="mb-3">
                 <label for="name" class="form-label">Name:</label>
-                <input type="text" name="name" id="name" class="form-control" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $user->name ?? old('name') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" required>
+                <input type="email" class="form-control" id="email" name="email" value="{{ $user->email ?? old('email') }}" required>
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" name="password" id="password" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="status">Status:</label>
-                <select name="status" id="status" class="form-control">
-                    <option value="aktif">Aktif</option>
-                    <option value="non-aktif">Non-Aktif</option>
+                <label for="status" class="form-label">Status:</label>
+                <select class="form-control" id="status" name="status" required>
+                    <option value="aktif" {{ (isset($user) && $user->status == 'aktif') ? 'selected' : '' }}>Aktif</option>
+                    <option value="non-aktif" {{ (isset($user) && $user->status == 'non-aktif') ? 'selected' : '' }}>Non-Aktif</option>
                 </select>
             </div>
 
