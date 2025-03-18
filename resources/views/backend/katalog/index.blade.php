@@ -25,7 +25,7 @@
                 <li class="nav-item">
                     <a href="{{ route('backend.katalog.index') }}" 
                        class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
-                        <i class="bi bi-person"></i> Catalog
+                        <i class="bi bi-person"></i> Katalog
                     </a>
                 </li>
                 <li class="nav-item">
