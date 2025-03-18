@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Catalog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -10,14 +10,14 @@ class KatalogController extends Controller
 {
     public function index(Request $request)
     {
+        $catalog = Catalog::all();
         $search = $request->input('search');
 
         // Menambahkan fitur pencarian
-        $users = User::when($search, function ($query) use ($search) {
+        $users = Catalog::when($search, function ($query) use ($search) {
             $query->where('name', 'like', "%{$search}%");
         })->paginate(10); // Menggunakan pagination
-    
-        return view('backend.katalog.index', compact('katalogs'));
+        return view('backend.katalog.index', compact('catalog'));
     }
 
     public function create()
@@ -26,51 +26,63 @@ class KatalogController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
-            'status' => 'required|in:aktif,non-aktif',
-        ]);
-    
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'status' => $request->status,
-        ]);
-
-        return redirect()->route('backend.katalog.index')->with('success', 'Catalog added successfully');
-    }
-
-    public function edit(User $user)
-    {
-        return view('backend.katalog.edit', compact('katalog'));
-    }
-
-    public function update(Request $request, User $user)
 {
     $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'status' => 'required|in:aktif,non-aktif',
+        'produk' => 'required|string|min:8',
+        'deskripsi' => 'required|string|max:255',
+        'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+    
+    // Simpan gambar ke storage dan dapatkan path-nya
+    $imagePath = $request->file('image_path')->store('catalog_images', 'public');
+
+    // Simpan data ke database
+    Catalog::create([
+        'produk' => $request->produk,
+        'deskripsi' => $request->deskripsi,
+        'image_path' => $imagePath, // Menggunakan path yang benar
     ]);
 
-    $user->update([
-        'name' => $request->name,
-        'email' => $request->email,
-        'status' => $request->status,
+    return redirect()->route('backend.katalog.index')->with('success', 'Catalog added successfully');
+}
+
+public function update(Request $request, Catalog $katalog)
+{
+    $request->validate([
+        'produk' => 'required|string|min:8',
+        'deskripsi' => 'required|string|max:255',
+        'image_path' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    return redirect()->route('backend.katalog.index')->with('success', 'Catalog updated successfully');
+    if ($request->hasFile('image_path')) {
+        $imagePath = $request->file('image_path')->store('catalog_images', 'public');
+        $katalog->update([
+            'produk' => $request->produk,
+            'deskripsi' => $request->deskripsi,
+            'image_path' => $imagePath,
+        ]);
+    } else {
+        $katalog->update([
+            'produk' => $request->produk,
+            'deskripsi' => $request->deskripsi,
+        ]);
+    }
+
+    return redirect()->route('katalog.index')->with('success', 'Catalog updated successfully');
 }
 
 
 
-    public function destroy(User $user)
+public function edit(Catalog $katalog)
+{
+    return view('backend.katalog.edit', compact('katalog'));
+}
+
+
+
+    public function destroy(Catalog $catalog)
     {
-        $user->delete();
-        return redirect()->route('katalog.index')->with('success', 'Catalog deleted successfully');
+        $catalog->delete();
+        return redirect()->route('katalog.index')->with('success', 'User deleted successfully');
     }
 }

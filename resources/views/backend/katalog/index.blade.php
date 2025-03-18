@@ -121,24 +121,24 @@
                         <thead class="table-warning">
                             <tr>
                                 <th>ID</th>
-                                <th>Nameeeeee</th>
-                                <th>Email</th>
-                                <th>Password</th>
-                                <th>Status</th>
+                                <th>gambar</th>
+                                <th>Produk</th>
+                                <th>Deskripsi</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($catalog as $katalog)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->password }}</td>
-                                <td>{{ $user->status }}</td>
+                                <td>{{ $katalog->id }}</td>
                                 <td>
-                                    <a href="{{ route('backend.katalog.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ route('katalog.destroy', $user->id) }}" method="POST" class="d-inline">
+                                    <img src="{{ asset('storage/' . $katalog->image_path) }}" alt="Gambar Produk" width="100">
+                                </td>
+                                <td>{{ $katalog->produk }}</td>
+                                <td>{{ $katalog->deskripsi }}</td>
+                                <td>
+                                    <a href="{{ route('backend.katalog.edit', $katalog->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('katalog.destroy', $katalog->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -148,7 +148,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <p>Showing {{ $users->count() }} entries</p>
+                    <p>Showing {{ $katalog->count() }} entries</p>
                 </div>
             </div>
         </main>

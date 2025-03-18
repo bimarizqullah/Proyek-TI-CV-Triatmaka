@@ -16,6 +16,7 @@ Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('backend
 Route::put('/users/{user}', [UserController::class, 'update'])->name('backend.users.update');
 
 // Rute CRUD Katalog
+Route::resource('katalog', KatalogController::class);
 Route::get('admin/katalog/create', [KatalogController::class, 'create'])->name('backend.katalog.create');
 Route::post('/katalog', [KatalogController::class, 'store'])->name('katalog.store');
 Route::get('/katalog/{katalog}/edit', [KatalogController::class, 'edit'])->name('backend.katalog.edit');

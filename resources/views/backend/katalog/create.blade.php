@@ -15,33 +15,24 @@
     @endif
 
     <div class="card p-4">
-        <form action="{{ route('katalog.store') }}" method="POST">
+        <form action="{{ route('katalog.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
-                <label for="name" class="form-label">Name:</label>
-                <input type="text" name="name" id="name" class="form-control" required>
+                <label for="produk" class="form-label">Nama Produk</label>
+                <input type="text" name="produk" id="produk" class="form-control" required>
             </div>
-
+        
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" required>
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <textarea name="deskripsi" id="deskripsi" class="form-control" rows="3" required></textarea>
             </div>
-
+        
             <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" name="password" id="password" class="form-control" required>
+                <label for="image_path" class="form-label">Gambar Produk</label>
+                <input type="file" name="image_path" id="image_path" class="form-control" accept="image/*" required>
             </div>
-
-            <div class="mb-3">
-                <label for="status">Status:</label>
-                <select name="status" id="status" class="form-control">
-                    <option value="aktif">Aktif</option>
-                    <option value="non-aktif">Non-Aktif</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-warning fw-bold">Save User</button>
-            <a href="{{ route('backend.katalog.index') }}" class="btn btn-danger">Cancel</a>
+        
+            <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </div>
 </div>
