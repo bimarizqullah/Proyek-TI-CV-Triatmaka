@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2>Add New User</h2>
+    <h2>Add New Product</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -15,7 +15,7 @@
     @endif
 
     <div class="card p-4">
-        <form action="{{ route('users.store') }}" method="POST">
+        <form action="{{ route('katalog.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Name:</label>
@@ -25,11 +25,6 @@
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
                 <input type="email" name="email" id="email" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="name" class="form-label">Alamat:</label>
-                <input type="text" name="alamat" id="alamat" class="form-control" required>
             </div>
 
             <div class="mb-3">
@@ -46,7 +41,7 @@
             </div>
 
             <button type="submit" class="btn btn-warning fw-bold">Save User</button>
-            <a href="{{ route('backend.users.index') }}" class="btn btn-danger">Cancel</a>
+            <a href="{{ route('backend.katalog.index') }}" class="btn btn-danger">Cancel</a>
         </form>
     </div>
 </div>

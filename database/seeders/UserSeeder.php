@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
             'name' => 'Bima Cahya',
             'email' => 'Bima@triatmakaofficial.com',
             'password' => Hash::make('password123'), // Gunakan bcrypt untuk enkripsi password
+            'alamat'=> 'Madiun',
         ]);
     }
 }

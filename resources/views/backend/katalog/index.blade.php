@@ -25,7 +25,7 @@
                 <li class="nav-item">
                     <a href="{{ route('backend.katalog.index') }}" 
                        class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
-                        <i class="bi bi-person"></i> Katalog
+                        <i class="bi bi-person"></i> Catalog
                     </a>
                 </li>
                 <li class="nav-item">
@@ -60,8 +60,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('backend/catalog*') ? 'active' : '' }}" href="#">
-                                    <i class="bi bi-box"></i> Catalog
+                                <a href="{{ route('backend.katalog.index') }}" 
+                                   class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
+                                    <i class="bi bi-person"></i> Katalog
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -105,10 +106,10 @@
                     
             <!-- Content -->
             <div class="mt-4">
-                <h2>Users</h2>
-                 <a href="{{ route('backend.users.create') }}" class="btn btn-warning mb-3 fw-bold">+ Add User</a>
+                <h2>Catalog</h2>
+                 <a href="{{ route('backend.katalog.create') }}" class="btn btn-warning mb-3 fw-bold">+ Add Produk</a>
                     <div class="d-flex justify-content-end mb-3">
-                        <form method="GET" action="{{ route('backend.users.index') }}">
+                        <form method="GET" action="{{ route('backend.katalog.index') }}">
                             <label>Search:
                                 <input type="text" name="search" class="form-control form-control-sm" 
                                     value="{{ request('search') }}" placeholder="Cari user...">
@@ -120,9 +121,9 @@
                         <thead class="table-warning">
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>Nameeeeee</th>
                                 <th>Email</th>
-                                <th>Alamat</th>
+                                <th>Password</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -133,11 +134,11 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->alamat }}</td>
+                                <td>{{ $user->password }}</td>
                                 <td>{{ $user->status }}</td>
                                 <td>
-                                    <a href="{{ route('backend.users.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                    <a href="{{ route('backend.katalog.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('katalog.destroy', $user->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>

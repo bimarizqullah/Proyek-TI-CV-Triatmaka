@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckUserStatus;
+use App\Http\Controllers\KatalogController;
 
 //Rute CRUD User
 Route::resource('users', UserController::class);
@@ -13,6 +14,12 @@ Route::get('admin/users/create', [UserController::class, 'create'])->name('backe
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('backend.users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('backend.users.update');
+
+// Rute CRUD Katalog
+Route::get('admin/katalog/create', [KatalogController::class, 'create'])->name('backend.katalog.create');
+Route::post('/katalog', [KatalogController::class, 'store'])->name('katalog.store');
+Route::get('/katalog/{katalog}/edit', [KatalogController::class, 'edit'])->name('backend.katalog.edit');
+Route::put('/katalog/{katalog}', [KatalogController::class, 'update'])->name('backend.katalog.update');
 
 //Rute Dashboard Frontend
 Route::get('/', [DashboardController::class, 'index']);
@@ -26,7 +33,11 @@ Route::post('admin/logout', [AuthController::class, 'logout'])->name('logout')->
 
 // Pastikan route yang memerlukan autentikasi dan status aktif
 Route::middleware(['auth', CheckUserStatus::class])->group(function () {
-    Route::get('/admin/dashboard', [UserController::class, 'index'])->name('backend.dashboard');
+    Route::get('/admin/users/index', [UserController::class, 'index'])->name('backend.users.index');
+});
+
+Route::middleware(['auth', CheckUserStatus::class])->group(function () {
+    Route::get('/admin/katalog/index', [KatalogController::class, 'index'])->name('backend.katalog.index');
 });
 
 // Route::middleware(['auth', CheckUserStatus::class])->group(function () {

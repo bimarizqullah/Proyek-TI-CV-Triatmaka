@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class KatalogController extends Controller
 {
     public function index(Request $request)
     {
@@ -17,12 +17,12 @@ class UserController extends Controller
             $query->where('name', 'like', "%{$search}%");
         })->paginate(10); // Menggunakan pagination
     
-        return view('backend.users.index', compact('users'));
+        return view('backend.katalog.index', compact('katalogs'));
     }
 
     public function create()
     {
-        return view('backend.users.create');
+        return view('backend.katalog.create');
     }
 
     public function store(Request $request)
@@ -31,7 +31,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
-            'alamat'=>'required|string|max:255',
             'status' => 'required|in:aktif,non-aktif',
         ]);
     
@@ -39,16 +38,15 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'alamat'=>$request->alamat,
             'status' => $request->status,
         ]);
 
-        return redirect()->route('backend.users.index')->with('success', 'User added successfully');
+        return redirect()->route('backend.katalog.index')->with('success', 'Catalog added successfully');
     }
 
     public function edit(User $user)
     {
-        return view('backend.users.edit', compact('user'));
+        return view('backend.katalog.edit', compact('katalog'));
     }
 
     public function update(Request $request, User $user)
@@ -56,18 +54,16 @@ class UserController extends Controller
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email,' . $user->id,
-        'alamat'=>'required|string|max:255',
         'status' => 'required|in:aktif,non-aktif',
     ]);
 
     $user->update([
         'name' => $request->name,
         'email' => $request->email,
-        'alamat' => $request->alamat,
         'status' => $request->status,
     ]);
 
-    return redirect()->route('backend.users.index')->with('success', 'User updated successfully');
+    return redirect()->route('backend.katalog.index')->with('success', 'Catalog updated successfully');
 }
 
 
@@ -75,6 +71,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully');
+        return redirect()->route('katalog.index')->with('success', 'Catalog deleted successfully');
     }
 }

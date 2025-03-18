@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2>Add New User</h2>
+    <h2>Edit User</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -29,6 +29,11 @@
             </div>
 
             <div class="mb-3">
+                <label for="alamat" class="form-label">Alamat:</label>
+                <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $user->alamat ?? old('alamat') }}" required>
+            </div>
+
+            <div class="mb-3">
                 <label for="status" class="form-label">Status:</label>
                 <select class="form-control" id="status" name="status" required>
                     <option value="aktif" {{ (isset($user) && $user->status == 'aktif') ? 'selected' : '' }}>Aktif</option>
@@ -37,7 +42,7 @@
             </div>
 
             <button type="submit" class="btn btn-warning fw-bold">Save User</button>
-            <a href="{{ route('backend.dashboard') }}" class="btn btn-secondary">Cancel</a>
+            <a href="{{ route('backend.users.index') }}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>

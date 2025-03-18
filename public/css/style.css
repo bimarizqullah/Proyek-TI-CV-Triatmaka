@@ -1,8 +1,19 @@
 /* Animasi */
-@keyframes fadeIn {
+@keyframes fadeIn-Y {
     from {
         opacity: 0;
         transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInY {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -33,12 +44,20 @@
     }
 }
 
+.navbar {
+    animation: fadeIn-Y 1.5s forwards;
+}
+
+.side-bar {
+    animation: fadeIn-X 1.5s forwards;
+}
+
 .login-container {
     margin: 15px;
     animation: fadeIn 1.0s forwards;
 }
 
-.side-bar, .announce-container {
+.announce-container {
     animation: fadeIn-X 0.8s forwards;
 }
 
@@ -50,5 +69,20 @@
     border-radius: 5px;
     background-color: #d1a000;
 }
+
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+    background-color:  #b69400 !important;
+    border-radius: 5px;
+}
+
+.nav .nav-link.active {
+    background-color: #b69400 !important;
+    border-radius: 5px;
+}
+
+
+
 
 
