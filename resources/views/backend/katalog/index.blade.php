@@ -105,23 +105,23 @@
             @endif
                     
             <!-- Content -->
-            <div class="mt-4">
+            <div class="catalog mt-4">
                 <h2>Catalog</h2>
                  <a href="{{ route('backend.katalog.create') }}" class="btn btn-warning mb-3 fw-bold">+ Add Produk</a>
                     <div class="d-flex justify-content-end mb-3">
                         <form method="GET" action="{{ route('backend.katalog.index') }}">
                             <label>Search:
                                 <input type="text" name="search" class="form-control form-control-sm" 
-                                    value="{{ request('search') }}" placeholder="Cari user...">
+                                    value="{{ request('search') }}" placeholder="Cari Produk...">
                             </label>
                             <button type="submit" class="btn btn-primary btn-sm btn-warning">Cari</button>
                         </form>
                     </div>
                     <table class="table table-bordered">
                         <thead class="table-warning">
-                            <tr>
+                            <tr class="text-center">
                                 <th>ID</th>
-                                <th>gambar</th>
+                                <th>Gambar</th>
                                 <th>Produk</th>
                                 <th>Deskripsi</th>
                                 <th>Action</th>

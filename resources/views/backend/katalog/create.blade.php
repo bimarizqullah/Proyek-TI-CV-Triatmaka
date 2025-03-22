@@ -32,7 +32,8 @@
                 <input type="file" name="image_path" id="image_path" class="form-control" accept="image/*" required>
             </div>
         
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-warning fw-bold">Simpan</button>
+            <a href="{{ route('backend.katalog.index') }}" class="btn btn-danger fw-bold">Cancel</a>
         </form>
     </div>
 </div>

@@ -60,8 +60,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('backend/catalog*') ? 'active' : '' }}" href="#">
-                                    <i class="bi bi-box"></i> Catalog
+                                <a href="{{ route('backend.katalog.index') }}" 
+                                   class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
+                                    <i class="bi bi-person"></i> Katalog
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -104,7 +105,7 @@
             @endif
                     
             <!-- Content -->
-            <div class="mt-4">
+            <div class="user mt-4">
                 <h2>Users</h2>
                  <a href="{{ route('backend.users.create') }}" class="btn btn-warning mb-3 fw-bold">+ Add User</a>
                     <div class="d-flex justify-content-end mb-3">
@@ -118,7 +119,7 @@
                     </div>
                     <table class="table table-bordered">
                         <thead class="table-warning">
-                            <tr>
+                            <tr class="text-center">
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>

@@ -4,18 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalog;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class KatalogController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, Catalog $catalog)
     {
-        $catalog = Catalog::all();
         $search = $request->input('search');
 
         // Menambahkan fitur pencarian
-        $users = Catalog::when($search, function ($query) use ($search) {
-            $query->where('name', 'like', "%{$search}%");
+        $catalog = Catalog::when($search, function ($query) use ($search) {
+            $query->where('produk', 'like', "%{$search}%");
         })->paginate(10); // Menggunakan pagination
         return view('backend.katalog.index', compact('catalog'));
     }
@@ -51,17 +50,27 @@ public function update(Request $request, Catalog $katalog)
     $request->validate([
         'produk' => 'required|string|min:8',
         'deskripsi' => 'required|string|max:255',
-        'image_path' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
+    // Cek apakah ada file baru yang diunggah
     if ($request->hasFile('image_path')) {
+        // Hapus gambar lama jika ada
+        if ($katalog->image_path && Storage::disk('public')->exists($katalog->image_path)) {
+            Storage::disk('public')->delete($katalog->image_path);
+        }
+
+        // Simpan gambar baru
         $imagePath = $request->file('image_path')->store('catalog_images', 'public');
+
+        // Update data dengan gambar baru
         $katalog->update([
             'produk' => $request->produk,
             'deskripsi' => $request->deskripsi,
             'image_path' => $imagePath,
         ]);
     } else {
+        // Update tanpa mengubah gambar
         $katalog->update([
             'produk' => $request->produk,
             'deskripsi' => $request->deskripsi,
@@ -70,7 +79,6 @@ public function update(Request $request, Catalog $katalog)
 
     return redirect()->route('katalog.index')->with('success', 'Catalog updated successfully');
 }
-
 
 
 public function edit(Catalog $katalog)
