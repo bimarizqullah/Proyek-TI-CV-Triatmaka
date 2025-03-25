@@ -48,11 +48,36 @@
                     <td>{{ $katalog->deskripsi }}</td>
                     <td>
                         <a href="{{ route('katalog.edit', $katalog->id) }}" class="btn btn-sm btn-primary fa-solid fa-pen-to-square"></a>
-                        <form action="{{ route('katalog.destroy', $katalog->id) }}" method="POST" class="d-inline ">
+                        <form action="{{ route('katalog.destroy', $katalog->id) }}" method="POST" class="d-inline delete-form">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger fa-solid fa-trash"></button>
+                            <button type="button" class="btn btn-sm btn-danger delete-button fa-solid fa-trash" data-user-id="{{ $katalog->id }}"></button>
                         </form>
+                        
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                document.querySelectorAll('.delete-button').forEach(button => {
+                                    button.addEventListener('click', function () {
+                                        let katalogId = this.getAttribute('data-katalog-id');
+                                        let form = this.closest('.delete-form'); // Ambil form terdekat dari tombol
+                        
+                                        Swal.fire({
+                                            title: "Apakah Anda yakin?",
+                                            text: "Data Produk akan dihapus secara permanen!",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#ffc107",
+                                            cancelButtonColor: "#d33",
+                                            confirmButtonText: "Ya, hapus"
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                form.submit();
+                                            }
+                                        });
+                                    });
+                                });
+                            });
+                        </script>
                     </td>
                 </tr>
                 @endforeach
