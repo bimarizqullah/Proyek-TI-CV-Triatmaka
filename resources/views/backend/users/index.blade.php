@@ -1,95 +1,6 @@
-@extends('layouts.app')
+@extends('layoutsBackend.app')
 
 @section('content')
-<div class="container-fluid m-3">
-    <div class="row">
-        <!-- Sidebar -->
-        <nav class="side-bar col-md-3 col-lg-2 d-md-block bg-warning text-dark sidebar py-4 min-vh-100 rounded-3">
-            <div class="text-center">
-                <img src="{{ asset('images/logo.png') }}" class="rounded-circle mb-3" width="100">
-                <h4 class="fw-bold">{{ Auth::user()->name}}</h4>
-                <p>{{Auth::user()->email}}</p>
-            </div>
-            <hr>
-            <h6 class="text-uppercase text-dark px-3">Settings</h6>
-            <ul class="nav flex-column px-3">
-                <li class="nav-item">
-                    <a href="{{ route('backend.users.index') }}" 
-                       class="nav-link text-dark {{ request()->is('admin/users*') ? 'active text-white rounded' : '' }}">
-                        <i class="bi bi-person"></i> Users
-                    </a>
-                </li>
-            </ul>
-            <h6 class="text-uppercase text-dark px-3 mt-3">Pages</h6>
-            <ul class="nav flex-column px-3">
-                <li class="nav-item">
-                    <a href="{{ route('katalog.index') }}" 
-                       class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
-                        <i class="bi bi-person"></i> Katalog
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-dark"> <i class="bi bi-chat"></i> Testimoni</a>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Main Content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg bg-warning shadow rounded-3">
-                <div class="container">
-                    <!-- Logo -->
-                    <a class="navbar-brand d-flex align-items-center" href="{{ route('backend.users.index') }}">
-                        <img src="{{ asset('images/logo.png') }}" width="50px" class="me-2">    
-                    </a>
-            
-                    <!-- Toggle button for mobile -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-            
-                    <!-- Navbar Content -->
-                    <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="{{ route('backend.users.index') }}" 
-                                   class="nav-link text-dark {{ request()->is('admin/users*') ? 'active text-white rounded' : '' }}">
-                                    <i class="bi bi-person"></i> Users
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('katalog.index') }}" 
-                                   class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
-                                    <i class="bi bi-person"></i> Katalog
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->is('backend/testimoni*') ? 'active' : '' }}" href="#">
-                                    <i class="bi bi-chat"></i> Testimoni
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-            
-                    <!-- User Info & Logout -->
-                    @auth
-                    <div class="d-flex align-items-center">
-                        <div class="text-end me-3">
-                            <strong class="d-block">{{ Auth::user()->name }}</strong>
-                            <small class="text-muted">{{ Auth::user()->email }}</small>
-                        </div>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                        </form>
-                    </div>
-                    @endauth
-                </div>
-            </nav>            
-
-
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                     {{ session('success') }}
@@ -138,11 +49,38 @@
                                 <td>{{ $user->status }}</td>
                                 <td>
                                     <a href="{{ route('backend.users.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        <button type="button" class="btn btn-sm btn-danger delete-button" data-user-id="{{ $user->id }}">
+                                            Delete
+                                        </button>
                                     </form>
+                                    
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            document.querySelectorAll('.delete-button').forEach(button => {
+                                                button.addEventListener('click', function () {
+                                                    let userId = this.getAttribute('data-user-id');
+                                                    let form = this.closest('.delete-form'); // Ambil form terdekat dari tombol
+                                    
+                                                    Swal.fire({
+                                                        title: "Apakah Anda yakin?",
+                                                        text: "Data pengguna akan dihapus secara permanen!",
+                                                        icon: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: "#ffc107",
+                                                        cancelButtonColor: "#d33",
+                                                        confirmButtonText: "Ya, hapus"
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            form.submit();
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    </script>
                                 </td>
                             </tr>
                             @endforeach
@@ -151,7 +89,4 @@
                     <p>Showing {{ $users->count() }} entries</p>
                 </div>
             </div>
-        </main>
-    </div>
-</div>
 @endsection
