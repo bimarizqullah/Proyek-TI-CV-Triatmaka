@@ -41,7 +41,7 @@ class KatalogController extends Controller
         'image_path' => $imagePath,
     ]);
 
-    return redirect()->route('backend.katalog.index')->with('success', 'Catalog added successfully');
+    return redirect()->route('katalog.index')->with('success', 'Catalog added successfully');
 }
 
 public function update(Request $request, Catalog $katalog)
@@ -82,6 +82,8 @@ public function edit(Catalog $katalog)
     return view('backend.katalog.edit', compact('katalog'));
 }
 
+
+// asdasda
 
 
 public function destroy(Catalog $katalog)
