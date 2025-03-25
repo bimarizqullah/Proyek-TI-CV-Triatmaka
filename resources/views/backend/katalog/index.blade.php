@@ -47,11 +47,11 @@
                     <td>{{ $katalog->produk }}</td>
                     <td>{{ $katalog->deskripsi }}</td>
                     <td>
-                        <a href="{{ route('katalog.edit', $katalog->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                        <form action="{{ route('katalog.destroy', $katalog->id) }}" method="POST" class="d-inline">
+                        <a href="{{ route('katalog.edit', $katalog->id) }}" class="btn btn-sm btn-primary fa-solid fa-pen-to-square"></a>
+                        <form action="{{ route('katalog.destroy', $katalog->id) }}" method="POST" class="d-inline ">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-danger fa-solid fa-trash"></button>
                         </form>
                     </td>
                 </tr>
