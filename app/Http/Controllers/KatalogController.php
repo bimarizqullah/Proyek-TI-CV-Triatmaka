@@ -73,7 +73,7 @@ public function update(Request $request, Catalog $katalog)
         ]);
     }
 
-    return redirect()->route('backend.katalog.index')->with('success', 'Catalog updated successfully');
+    return redirect()->route('katalog.index')->with('success', 'Catalog updated successfully');
 }
 
 
@@ -84,9 +84,9 @@ public function edit(Catalog $katalog)
 
 
 
-    public function destroy(Catalog $catalog)
+public function destroy(Catalog $katalog)
     {
-        $catalog->delete();
-        return redirect()->route('backend.katalog.index')->with('success', 'User deleted successfully');
+        $katalog->delete();
+        return redirect()->route('katalog.index')->with('success', 'Product deleted successfully');
     }
 }
