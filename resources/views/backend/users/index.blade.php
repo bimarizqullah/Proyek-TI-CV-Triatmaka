@@ -23,7 +23,7 @@
             <h6 class="text-uppercase text-dark px-3 mt-3">Pages</h6>
             <ul class="nav flex-column px-3">
                 <li class="nav-item">
-                    <a href="{{ route('backend.katalog.index') }}" 
+                    <a href="{{ route('katalog.index') }}" 
                        class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
                         <i class="bi bi-person"></i> Katalog
                     </a>
@@ -60,7 +60,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('backend.katalog.index') }}" 
+                                <a href="{{ route('katalog.index') }}" 
                                    class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
                                     <i class="bi bi-person"></i> Katalog
                                 </a>

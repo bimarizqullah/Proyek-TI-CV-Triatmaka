@@ -17,10 +17,10 @@ Route::put('/users/{user}', [UserController::class, 'update'])->name('backend.us
 
 // Rute CRUD Katalog
 Route::resource('katalog', KatalogController::class);
-Route::get('admin/katalog/create', [KatalogController::class, 'create'])->name('backend.katalog.create');
+Route::get('admin/katalog/create', [KatalogController::class, 'create'])->name('katalog.create');
 Route::post('/katalog', [KatalogController::class, 'store'])->name('katalog.store');
-Route::get('/katalog/{katalog}/edit', [KatalogController::class, 'edit'])->name('backend.katalog.edit');
-Route::put('/katalog/{katalog}', [KatalogController::class, 'update'])->name('backend.katalog.update');
+Route::get('/katalog/{katalog}/edit', [KatalogController::class, 'edit'])->name('katalog.edit');
+Route::put('/katalog/{katalog}', [KatalogController::class, 'update'])->name('katalog.update');
 
 //Rute Dashboard Frontend
 Route::get('/', [DashboardController::class, 'index']);
@@ -38,7 +38,7 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
 });
 
 Route::middleware(['auth', CheckUserStatus::class])->group(function () {
-    Route::get('/admin/katalog/index', [KatalogController::class, 'index'])->name('backend.katalog.index');
+    Route::get('/admin/katalog/index', [KatalogController::class, 'index'])->name('katalog.index');
 });
 
 // Route::middleware(['auth', CheckUserStatus::class])->group(function () {

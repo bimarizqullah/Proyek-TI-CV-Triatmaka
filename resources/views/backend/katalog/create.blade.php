@@ -33,7 +33,7 @@
             </div>
         
             <button type="submit" class="btn btn-warning fw-bold">Simpan</button>
-            <a href="{{ route('backend.katalog.index') }}" class="btn btn-danger fw-bold">Cancel</a>
+            <a href="{{ route('katalog.index') }}" class="btn btn-danger fw-bold">Cancel</a>
         </form>
     </div>
 </div>

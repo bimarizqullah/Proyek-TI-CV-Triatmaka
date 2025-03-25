@@ -23,7 +23,7 @@
             <h6 class="text-uppercase text-dark px-3 mt-3">Pages</h6>
             <ul class="nav flex-column px-3">
                 <li class="nav-item">
-                    <a href="{{ route('backend.katalog.index') }}" 
+                    <a href="{{ route('katalog.index') }}" 
                        class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
                         <i class="bi bi-person"></i> Katalog
                     </a>
@@ -60,7 +60,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('backend.katalog.index') }}" 
+                                <a href="{{ route('katalog.index') }}" 
                                    class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
                                     <i class="bi bi-person"></i> Katalog
                                 </a>
@@ -107,9 +107,9 @@
             <!-- Content -->
             <div class="catalog mt-4">
                 <h2>Catalog</h2>
-                 <a href="{{ route('backend.katalog.create') }}" class="btn btn-warning mb-3 fw-bold">+ Add Produk</a>
+                 <a href="{{ route('katalog.create') }}" class="btn btn-warning mb-3 fw-bold">+ Add Produk</a>
                     <div class="d-flex justify-content-end mb-3">
-                        <form method="GET" action="{{ route('backend.katalog.index') }}">
+                        <form method="GET" action="{{ route('katalog.index') }}">
                             <label>Search:
                                 <input type="text" name="search" class="form-control form-control-sm" 
                                     value="{{ request('search') }}" placeholder="Cari Produk...">
@@ -137,7 +137,7 @@
                                 <td>{{ $katalog->produk }}</td>
                                 <td>{{ $katalog->deskripsi }}</td>
                                 <td>
-                                    <a href="{{ route('backend.katalog.edit', $katalog->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="{{ route('katalog.edit', $katalog->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                     <form action="{{ route('katalog.destroy', $katalog->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
