@@ -10,7 +10,7 @@
         <li class="nav-item">
             <a href="{{ route('backend.users.index') }}" 
                class="nav-link text-dark {{ request()->is('admin/users*') ? 'active text-white rounded' : '' }}">
-                <i class="bi bi-person"></i> Users
+                <i class="bi bi-person fa-solid fa-user"></i> Users
             </a>
         </li>
     </ul>
@@ -19,11 +19,11 @@
         <li class="nav-item">
             <a href="{{ route('katalog.index') }}" 
                class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
-                <i class="bi bi-person"></i> Katalog
+                <i class="bi bi-person fa-solid fa-briefcase"></i> Katalog
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-dark"> <i class="bi bi-chat"></i> Testimoni</a>
+            <a href="#" class="nav-link text-dark"> <i class="bi bi-person fa-solid fa-face-smile"></i> Testimoni</a>
         </li>
     </ul>
 </nav>

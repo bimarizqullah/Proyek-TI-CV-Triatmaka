@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('alamat');
             $table->string('password');
+            $table->enum('level', ['superadmin', 'admin'])->default('superadmin');
             $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->rememberToken();
             $table->timestamps();

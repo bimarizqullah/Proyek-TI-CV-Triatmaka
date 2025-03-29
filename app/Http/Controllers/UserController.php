@@ -32,6 +32,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'alamat'=>'required|string|max:255',
+            'level' => 'required|in:superadmin,admin',
             'status' => 'required|in:aktif,non-aktif',
         ]);
     
@@ -40,6 +41,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'alamat'=>$request->alamat,
+            'level' => $request->level,
             'status' => $request->status,
         ]);
 
@@ -57,6 +59,7 @@ class UserController extends Controller
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email,' . $user->id,
         'alamat'=>'required|string|max:255',
+        'level' => 'required|in:superadmin,admin',
         'status' => 'required|in:aktif,non-aktif',
     ]);
 
@@ -64,6 +67,7 @@ class UserController extends Controller
         'name' => $request->name,
         'email' => $request->email,
         'alamat' => $request->alamat,
+        'level' => $request->level,
         'status' => $request->status,
     ]);
 

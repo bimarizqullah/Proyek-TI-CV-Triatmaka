@@ -38,6 +38,14 @@
             </div>
 
             <div class="mb-3">
+                <label for="level">Level:</label>
+                <select name="level" id="level" class="form-control" required>
+                    <option value="aktif">Super Admin</option>
+                    <option value="non-aktif">Admin</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
                 <label for="status">Status:</label>
                 <select name="status" id="status" class="form-control">
                     <option value="aktif">Aktif</option>

@@ -34,6 +34,15 @@
             </div>
 
             <div class="mb-3">
+                <label for="level" class="form-label">Level:</label>
+                <select class="form-control" id="level" name="level" required>
+                    <option value="superadmin" {{ (isset($user) && $user->level == 'superadmin') ? 'selected' : '' }}>Super Admin</option>
+                    <option value="admin" {{ (isset($user) && $user->level == 'admin') ? 'selected' : '' }}>Admin</option>
+                </select>
+            </div>
+
+
+            <div class="mb-3">
                 <label for="status" class="form-label">Status:</label>
                 <select class="form-control" id="status" name="status" required>
                     <option value="aktif" {{ (isset($user) && $user->status == 'aktif') ? 'selected' : '' }}>Aktif</option>

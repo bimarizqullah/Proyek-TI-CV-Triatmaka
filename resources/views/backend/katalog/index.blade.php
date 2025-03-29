@@ -83,6 +83,6 @@
                 @endforeach
             </tbody>
         </table>
-        <p>Showing {{ $katalog->count() }} entries</p>
+        <p>Showing {{ $catalog->count() }} entries</p>
     </div>
 @endsection
