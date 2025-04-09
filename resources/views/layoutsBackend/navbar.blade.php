@@ -24,8 +24,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('backend/testimoni*') ? 'active' : '' }}" href="#">
-                        <i class="bi bi-chat"></i> Testimoni
+                    <a href="{{ route('testimoni.index') }}" 
+                       class="nav-link text-dark {{ request()->is('admin/testimoni*') ? 'active text-white rounded' : '' }}">
+                        <i class="bi bi-person"></i> Testimoni
                     </a>
                 </li>
             </ul>

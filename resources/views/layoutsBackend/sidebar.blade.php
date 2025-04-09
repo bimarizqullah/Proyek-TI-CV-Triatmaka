@@ -32,7 +32,10 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-dark"> <i class="bi bi-person fa-solid fa-face-smile"></i> Testimoni</a>
+            <a href="{{ route('testimoni.index') }}" 
+               class="nav-link text-dark {{ request()->is('admin/testimoni*') ? 'active text-white rounded' : '' }}">
+                <i class="bi bi-person fa-solid fa-briefcase"></i> Testimoni
+            </a>
         </li>
     </ul>
 </nav>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\TestimoniController;
 use App\Http\Middleware\CheckUserStatus;
 use App\Http\Middleware\SuperUser;
 
@@ -46,6 +47,16 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::get('/katalog/{katalog}/edit', [KatalogController::class, 'edit'])->name('katalog.edit');
     Route::put('/katalog/{katalog}', [KatalogController::class, 'update'])->name('katalog.update');
     Route::get('/admin/katalog/index', [KatalogController::class, 'index'])->name('katalog.index');
+});
+
+// Rute CRUD Testimoni (Bisa diakses oleh Admin dan Super Admin)
+Route::middleware(['auth', CheckUserStatus::class])->group(function () {
+    Route::resource('testimoni', TestimoniController::class);
+    Route::get('admin/testimoni/create', [TestimoniController::class, 'create'])->name('testimoni.create');
+    Route::post('/testimoni', [TestimoniController::class, 'store'])->name('testimoni.store');
+    Route::get('/testimoni/{testimoni}/edit', [TestimoniController::class, 'edit'])->name('testimoni.edit');
+    Route::put('/testimoni/{testimoni}', [TestimoniController::class, 'update'])->name('testimoni.update');
+    Route::get('/admin/testimoni/index', [TestimoniController::class, 'index'])->name('testimoni.index');
 });
 
 
