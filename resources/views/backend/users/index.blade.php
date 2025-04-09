@@ -58,7 +58,7 @@
                     <td>{{ $user->level }}</td>
                     <td>{{ $user->status }}</td>
 
-                    @if(auth()->user()->level === 'superadmin')
+                    @if(Auth::user()->level === 'superadmin')
                         <td>
                             <a href="{{ route('backend.users.edit', $user->id) }}" class="btn btn-sm btn-primary fa-solid fa-pen-to-square"></a>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline delete-form">

@@ -18,6 +18,17 @@ Route::post('admin/login', [AuthController::class, 'login']);
 Route::post('admin/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Rute CRUD User (Hanya bisa diakses oleh Super Admin)
+
+Route::middleware(['auth', CheckUserStatus::class, SuperUser::class])->group(function () {
+    Route::resource('profile', UserController::class);
+    Route::post('/profile', [UserController::class, 'store'])->name('users.store');
+    Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('backend.profile.edit');
+    Route::put('/profile/{user}', [UserController::class, 'update'])->name('backend.profile.profile');
+    Route::get('/admin/profile/', [UserController::class, 'index'])->name('backend.profile.index');
+});
+
+
+// Rute CRUD User (Hanya bisa diakses oleh Super Admin)
 Route::middleware(['auth', CheckUserStatus::class, SuperUser::class])->group(function () {
     Route::resource('users', UserController::class);
     Route::get('admin/users/create', [UserController::class, 'create'])->name('backend.users.create');
@@ -36,6 +47,7 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::put('/katalog/{katalog}', [KatalogController::class, 'update'])->name('katalog.update');
     Route::get('/admin/katalog/index', [KatalogController::class, 'index'])->name('katalog.index');
 });
+
 
 // Rute Admin Dashboard
 Route::middleware(['auth', CheckUserStatus::class])->group(function () {

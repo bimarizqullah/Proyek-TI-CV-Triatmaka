@@ -9,22 +9,66 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="{{ asset('css/style.css?v=2') }}">
+        
+        <style>
+            /* Membuat body dan wrapper agar footer tetap di bawah */
+            body {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                margin: 0;
+            }
+
+            /* Wrapper untuk sidebar dan konten utama */
+            .wrapper {
+                flex: 1;
+                display: flex;
+                padding-bottom: 50px; /* Beri ruang untuk footer */
+            }
+
+            /* Sidebar */
+            .sidebar {
+                width: 250px;
+                background: #FFC107;
+                min-height: 100vh;
+                padding: 20px;
+            }
+
+            /* Main content */
+            .main-content {
+                flex: 1;
+                padding: 20px;
+            }
+
+            /* Footer tetap di bawah dan fixed */
+            .footer {
+                background: #f8f9fa;
+                color: #333;
+                text-align: center;
+                padding: 10px 0;
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            }
+        </style>
     </head>
     
     <body>
-        <div class="container-fluid m-3">
-            <div class="row">
-                <!-- Sidebar -->
-                @include('layoutsBackend.sidebar')
+        <div class="wrapper">
+            <!-- Sidebar -->
+            @include('layoutsBackend.sidebar')
 
-                <!-- Main Content -->
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <!-- Navbar -->
-                    @include('layoutsBackend.navbar')
-                    
-                    @yield('content')
-                </main>
+            <!-- Main Content -->
+            <div class="main-content">
+                @include('layoutsBackend.navbar')
+
+                @yield('content')
             </div>
         </div>
+
+        <!-- Footer fixed di bawah -->
+        @include('layoutsBackend.footer')
     </body>
 </html>
