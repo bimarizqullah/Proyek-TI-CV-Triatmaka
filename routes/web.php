@@ -5,7 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\TestimoniController;
 use App\Http\Middleware\CheckUserStatus;
 use App\Http\Middleware\SuperUser;
 
@@ -19,12 +21,15 @@ Route::post('admin/logout', [AuthController::class, 'logout'])->name('logout')->
 
 // Rute CRUD User (Hanya bisa diakses oleh Super Admin)
 
-Route::middleware(['auth', CheckUserStatus::class, SuperUser::class])->group(function () {
-    Route::resource('profile', UserController::class);
-    Route::post('/profile', [UserController::class, 'store'])->name('users.store');
-    Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('backend.profile.edit');
-    Route::put('/profile/{user}', [UserController::class, 'update'])->name('backend.profile.profile');
-    Route::get('/admin/profile/', [UserController::class, 'index'])->name('backend.profile.index');
+
+// Rute CRUD Profile (Bisa diakses oleh Admin dan Super Admin)
+Route::middleware(['auth', CheckUserStatus::class])->group(function () {
+    Route::resource('profile', ProfileController::class);
+    Route::get('admin/profile/create', [ProfileController::class, 'create'])->name('profile.create');
+    Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
+    Route::get('/profile/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/admin/profile/index', [ProfileController::class, 'index'])->name('profile.index');  
 });
 
 
@@ -46,6 +51,16 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::get('/katalog/{katalog}/edit', [KatalogController::class, 'edit'])->name('katalog.edit');
     Route::put('/katalog/{katalog}', [KatalogController::class, 'update'])->name('katalog.update');
     Route::get('/admin/katalog/index', [KatalogController::class, 'index'])->name('katalog.index');
+});
+
+// Rute CRUD Testimoni (Bisa diakses oleh Admin dan Super Admin)
+Route::middleware(['auth', CheckUserStatus::class])->group(function () {
+    Route::resource('testimoni', TestimoniController::class);
+    Route::get('admin/testimoni/create', [TestimoniController::class, 'create'])->name('testimoni.create');
+    Route::post('/testimoni', [TestimoniController::class, 'store'])->name('testimoni.store');
+    Route::get('/testimoni/{testimoni}/edit', [TestimoniController::class, 'edit'])->name('testimoni.edit');
+    Route::put('/testimoni/{testimoni}', [TestimoniController::class, 'update'])->name('testimoni.update');
+    Route::get('/admin/testimoni/index', [TestimoniController::class, 'index'])->name('testimoni.index');
 });
 
 
