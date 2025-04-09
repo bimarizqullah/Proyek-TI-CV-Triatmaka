@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Middleware\CheckUserStatus;
 use App\Http\Middleware\SuperUser;
@@ -19,12 +20,15 @@ Route::post('admin/logout', [AuthController::class, 'logout'])->name('logout')->
 
 // Rute CRUD User (Hanya bisa diakses oleh Super Admin)
 
-Route::middleware(['auth', CheckUserStatus::class, SuperUser::class])->group(function () {
-    Route::resource('profile', UserController::class);
-    Route::post('/profile', [UserController::class, 'store'])->name('users.store');
-    Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('backend.profile.edit');
-    Route::put('/profile/{user}', [UserController::class, 'update'])->name('backend.profile.profile');
-    Route::get('/admin/profile/', [UserController::class, 'index'])->name('backend.profile.index');
+
+// Rute CRUD Profile (Bisa diakses oleh Admin dan Super Admin)
+Route::middleware(['auth', CheckUserStatus::class])->group(function () {
+    Route::resource('profile', ProfileController::class);
+    Route::get('admin/profile/create', [ProfileController::class, 'create'])->name('profile.create');
+    Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
+    Route::get('/profile/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/admin/profile/index', [ProfileController::class, 'index'])->name('profile.index');  
 });
 
 

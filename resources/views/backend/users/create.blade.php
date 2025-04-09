@@ -40,8 +40,8 @@
             <div class="mb-3">
                 <label for="level">Level:</label>
                 <select name="level" id="level" class="form-control" required>
-                    <option value="aktif">Super Admin</option>
-                    <option value="non-aktif">Admin</option>
+                    <option value="superadmin">Super Admin</option>
+                    <option value="admin">Admin</option>
                 </select>
             </div>
 

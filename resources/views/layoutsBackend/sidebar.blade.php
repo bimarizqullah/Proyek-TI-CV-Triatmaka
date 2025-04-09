@@ -8,7 +8,7 @@
     <h6 class="text-uppercase text-dark px-3">Settings</h6>
     <ul class="nav flex-column px-3">
         <li class="nav-item">
-            <a href="{{ route('backend.profile.index') }}" 
+            <a href="{{ route('profile.index') }}" 
                class="nav-link text-dark {{ request()->is('admin/profile*') ? 'active text-white rounded' : '' }}">
                 <i class="bi bi-person fa-solid fa-user"></i> Profile
             </a>
