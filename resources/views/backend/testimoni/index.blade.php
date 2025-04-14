@@ -47,7 +47,7 @@
                         <img src="{{ asset('storage/' . $testimonis->image_path) }}" alt="Gambar Produk" width="100">
                     </td>
                     <td>{{ $testimonis->nama_pelanggan }}</td>
-                    <td>{{ $testimonis->produk }}</td>
+                    <td>{{ $testimonis->catalog->produk }}</td>
                     <td>{{ $testimonis->deskripsi }}</td>
                     <td>{{ $testimonis->rating }}</td>
                     <td>

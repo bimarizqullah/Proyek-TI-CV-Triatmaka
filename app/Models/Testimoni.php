@@ -21,6 +21,16 @@ class Testimoni extends Model
         'produk',
         'deskripsi',
         'rating',
+        'users_id'
         
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
+    public function catalog()
+    {
+        return $this->belongsTo(Catalog::class, 'produk');
+    }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+
 
 class KatalogController extends Controller
 {
@@ -35,14 +37,21 @@ class KatalogController extends Controller
         // Simpan gambar ke storage dan dapatkan path-nya
         $imagePath = $request->file('image_path')->store('catalog_images', 'public');
 
-        Catalog::create([
-            'produk' => $request->produk,
-            'deskripsi' => $request->deskripsi,
-            'image_path' => $imagePath,
-        ]);
+        if (Auth::check()) {
+            // Simpan gambar ke storage dan dapatkan path-nya
+            $imagePath = $request->file('image_path')->store('catalog_images', 'public');
+    
+            // Menyimpan data katalog
+            Catalog::create([
+                'produk' => $request->produk,
+                'deskripsi' => $request->deskripsi,
+                'image_path' => $imagePath,
+                'users_id' => Auth::user()->id,  // Menyertakan ID pengguna yang login
+            ]);
 
         return redirect()->route('katalog.index')->with('success', 'Catalog added successfully');
     }
+}
 
     public function update(Request $request, Catalog $katalog)
     {

@@ -18,6 +18,17 @@ class Catalog extends Model
     protected $fillable = [
         'image_path',
         'produk',
-        'deskripsi'
+        'deskripsi',
+        'users_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
+
+    public function testimonis()
+    {
+        return $this->hasMany(Testimoni::class, 'produk');
+    }
 }

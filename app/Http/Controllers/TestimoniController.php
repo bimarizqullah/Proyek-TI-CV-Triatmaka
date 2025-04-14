@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catalog;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,29 +23,32 @@ class TestimoniController extends Controller
 
     public function create()
     {
-        return view('backend.testimoni.create');
+        $produks = Catalog::all();
+        return view('backend.testimoni.create', compact('produks'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'nama_pelanggan' => 'required|string|min:8',
-            'produk' => 'required|string|min:8',
+            'produk' => 'required|exists:catalog,id',
             'deskripsi' => 'required|string|max:255',
             'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
             'rating' => 'required|numeric|between:0,5',
         ]);
-        
-        // Simpan gambar ke storage dan dapatkan path-nya
-        $imagePath = $request->file('image_path')->store('testimoni_images', 'public');
+        if (Auth::check()) {
+            $imagePath = $request->file('image_path')->store('testimoni_images', 'public');
 
-        Testimoni::create([
-            'nama_pelanggan' => $request->nama_pelanggan,
-            'produk' => $request->produk,
-            'deskripsi' => $request->deskripsi,
-            'image_path' => $imagePath,
-            'rating' => $request->rating,
-        ]);
+            Testimoni::create([
+                'nama_pelanggan' => $request->nama_pelanggan,
+                'produk' => $request->produk,
+                'deskripsi' => $request->deskripsi,
+                'image_path' => $imagePath,
+                'rating' => $request->rating,
+                'users_id' => Auth::user()->id,
+            ]);
+        }
+
 
         return redirect()->route('testimoni.index')->with('success', 'Testimoni added successfully');
     }
@@ -88,6 +93,7 @@ class TestimoniController extends Controller
 
     public function edit(Testimoni $testimoni)
     {
+        $produks = Catalog::all();
         return view('backend.testimoni.edit', compact('testimoni'));
     }
     
