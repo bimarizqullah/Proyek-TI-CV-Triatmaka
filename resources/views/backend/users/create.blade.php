@@ -15,7 +15,7 @@
     @endif
 
     <div class="card p-4">
-        <form action="{{ route('users.store') }}" method="POST">
+        <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Name:</label>
@@ -51,6 +51,11 @@
                     <option value="aktif">Aktif</option>
                     <option value="non-aktif">Non-Aktif</option>
                 </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="image_path" class="form-label">Profile Picture</label>
+                <input type="file" name="image_path" id="image_path" class="form-control" accept="image/*" required>
             </div>
 
             <button type="submit" class="btn btn-warning fw-bold">Save User</button>

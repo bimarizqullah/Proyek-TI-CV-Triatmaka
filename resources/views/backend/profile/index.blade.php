@@ -1,98 +1,89 @@
 @extends('layoutsBackend.app')
 
-
 @section('content')
-<div class="container py-4">
+<div class="container-fluid py-4">
     <div class="row">
+        <!-- Sidebar Profil -->
         <div class="col-md-3">
             <div class="card shadow-sm mb-4">
                 <div class="card-body text-center">
-                    <img src="{{ Auth::user()->profile_picture ? asset('storage/'.Auth::user()->profile_picture) : asset('images/default-avatar.png') }}" 
+                    <img src="{{ Auth::user()->image_path ? asset('storage/' . Auth::user()->image_path) : asset('storage/profile/default.png') }}"
                          class="rounded-circle mb-3" width="150" height="150" alt="Profile Picture">
                     <h4>{{ Auth::user()->name }}</h4>
                     <p class="text-muted">{{ Auth::user()->email }}</p>
-                    
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('profilePictureInput').click()">
-                            <i class="fas fa-camera me-1"></i> Ganti Foto
-                        </button>
-                    </div>
-                    <input type="file" id="profilePictureInput" style="display: none;">
-                </div>
-            </div>
-            
-        </div>
-        
-        <div class="col-md-9">
-            <div class="card shadow-sm">
-                <div class="card-header bg-white border-bottom">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Informasi Profile</h5>
-                        <button class="btn btn-sm btn-outline-secondary">
-                            <i class="fas fa-edit me-1"></i> Edit
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="card-body">
-                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+
+                    <form action="{{ route('profile.update-foto', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Nama Lengkap</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" required>
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Email</label>
-                            <div class="col-md-9">
-                                <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
-                            </div>
-                        </div>
-                        
-                        
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Alamat</label>
-                            <div class="col-md-9">
-                                <textarea class="form-control" name="address" rows="3">{{ Auth::user()->alamat }}</textarea>
-                            </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Level</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="level" value="{{ Auth::user()->level }}" required>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Status</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="level" value="{{ Auth::user()->status }}" required>
-                            </div>
-                        </div>
+                        <input type="file" name="image_path" id="profilePictureInput" accept="image/*" style="display: none;" onchange="this.form.submit()">
                         
-                        <div class="row mb-3">
-                            <label class="col-md-3 col-form-label">Password</label>
-                            <div class="col-md-9">
-                                <a href="#" class="btn btn-outline-secondary btn-sm">Ubah Password</a>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-9 offset-md-3">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save me-1"></i> Simpan Perubahan
-                                </button>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('profilePictureInput').click()">
+                            <i class="fas fa-camera me-1"></i> Ganti Foto
+                        </button>
                     </form>
                 </div>
             </div>
-            
+        </div>
+
+        <!-- Informasi Profil -->
+        <div class="col-md-9">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Informasi Profil</h5>
+                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                        <i class="fas fa-edit me-1"></i> Edit
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Nama Lengkap</label>
+                        <div class="col-md-9 mt-2">
+                            <span>{{ Auth::user()->name }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Email</label>
+                        <div class="col-md-9 mt-2">
+                            <span>{{ Auth::user()->email }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Alamat</label>
+                        <div class="col-md-9 mt-2">
+                            <span>{{ Auth::user()->alamat }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Level</label>
+                        <div class="col-md-9 mt-2">
+                            <span>{{ Auth::user()->level }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Status</label>
+                        <div class="col-md-9 mt-2">
+                            <span class="badge {{ Auth::user()->status == 'aktif' ? 'bg-success' : 'bg-secondary' }}">
+                                {{ Auth::user()->status }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">Password</label>
+                        <div class="col-md-9">
+                            <a href="#" class="btn btn-outline-secondary btn-sm">Ubah Password</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informasi Tambahan -->
             <div class="card shadow-sm mt-4">
                 <div class="card-header bg-white border-bottom">
                     <h5 class="mb-0">Informasi Tambahan</h5>
@@ -112,19 +103,53 @@
     </div>
 </div>
 
-<script>
-    // Preview image sebelum upload
-    document.getElementById('profilePictureInput').addEventListener('change', function(e) {
-        if (e.target.files.length > 0) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                document.querySelector('.rounded-circle').src = event.target.result;
-            };
-            reader.readAsDataURL(e.target.files[0]);
-            
-            // Otomatis submit form jika file dipilih
-            document.querySelector('form').submit();
-        }
-    });
-</script>
+<!-- Modal Edit -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="{{ route('profile.update', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nama Lengkap:</label>
+                        <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat:</label>
+                        <input type="text" class="form-control" name="alamat" value="{{ Auth::user()->alamat }}" required>
+                    </div>
+
+                    <!-- Level dan Status diset non-editable -->
+                    <div class="mb-3">
+                        <label class="form-label">Level:</label>
+                        <input type="text" class="form-control" value="{{ Auth::user()->level }}" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Status:</label>
+                        <input type="text" class="form-control" value="{{ Auth::user()->status }}" disabled>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning">Simpan</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

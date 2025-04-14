@@ -1,6 +1,7 @@
 <nav class="side-bar col-md-3 col-lg-2 d-md-block bg-warning text-dark sidebar py-4 min-vh-100 ">
     <div class="text-center">
-        <img src="{{ asset('images/logo.png') }}" class="rounded-circle mb-3" width="100">
+        <img src="{{ Auth::user()->image_path ? asset('storage/' . Auth::user()->image_path) : asset('storage/profile/default.png') }}"
+        class="rounded-circle mb-3" width="150" height="150" alt="Profile Picture">
         <h4 class="fw-bold">{{ Auth::user()->name }}</h4>
         <p>{{ Auth::user()->email }}</p>
     </div>
@@ -15,7 +16,7 @@
         </li>
         @if(Auth::user()->level === 'superadmin') 
         <li class="nav-item">
-            <a href="{{ route('backend.users.index') }}" 
+            <a href="{{ route('users.index') }}" 
                class="nav-link text-dark {{ request()->is('admin/users*') ? 'active text-white rounded' : '' }}">
                 <i class="bi bi-person fa-solid fa-user"></i> Users
             </a>

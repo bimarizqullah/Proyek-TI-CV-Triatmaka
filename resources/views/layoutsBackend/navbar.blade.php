@@ -12,11 +12,21 @@
         <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="{{ route('backend.users.index') }}" 
+                    <a href="{{ route('profile.index') }}" 
+                       class="nav-link text-dark {{ request()->is('admin/profile*') ? 'active text-white rounded' : '' }}">
+                        <i class="bi bi-person"></i> Profile
+                    </a>
+                </li>
+
+                @if (Auth::user()->level === 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('users.index') }}" 
                        class="nav-link text-dark {{ request()->is('admin/users*') ? 'active text-white rounded' : '' }}">
                         <i class="bi bi-person"></i> Users
                     </a>
                 </li>
+                
+                @endif
                 <li class="nav-item">
                     <a href="{{ route('katalog.index') }}" 
                        class="nav-link text-dark {{ request()->is('admin/katalog*') ? 'active text-white rounded' : '' }}">
@@ -34,13 +44,15 @@
 
         @auth
         <div class="d-flex align-items-center">
-            <div class="text-end me-3">
+            <div class="text-end me-3 pr-3">
                 <strong class="d-block">{{ Auth::user()->name }}</strong>
                 <small class="text-muted">{{ Auth::user()->email }}</small>
             </div>
+            {{-- <img src="{{ Auth::user()->image_path ? asset('storage/' . Auth::user()->image_path) : asset('storage/profile/default.png') }}"
+        class="rounded-circle" width="50px" height="50px" alt="Profile Picture"> --}}
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-inline">
                 @csrf
-                <button type="button" class="btn btn-danger btn-sm" id="logout-button">Logout</button>
+                <button type="button" class="btn btn-danger shadow-lg btn-sm m-3" id="logout-button">Logout</button>
             </form>
         </div>
 

@@ -15,7 +15,7 @@
     @endif
 
     <div class="card p-4">
-        <form action="{{ route('users.update', $user->id) }}" method="POST">
+        <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -50,8 +50,24 @@
                 </select>
             </div>
 
+            <div class="mb-3">
+                <label for="image_path" class="form-label" >Profile Picture</label>
+
+                {{-- Tampilkan gambar lama jika ada --}}
+                @if ($user->image_path)
+                    <div class="mb-2">
+                        <img src="{{ asset('storage/' . $user->image_path) }}" 
+                             alt="Profile Picture" 
+                             class="img-thumbnail" 
+                             width="200">
+                    </div>
+                @endif
+
+                <input type="file" name="image_path" id="image_path" class="form-control" accept="image/*">
+            </div>
+
             <button type="submit" class="btn btn-warning fw-bold">Save User</button>
-            <a href="{{ route('backend.users.index') }}" class="btn btn-secondary">Cancel</a>
+            <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>

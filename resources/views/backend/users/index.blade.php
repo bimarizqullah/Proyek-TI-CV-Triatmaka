@@ -21,11 +21,11 @@
 
         <!-- Tombol tambah user hanya muncul untuk Super Admin -->
         @if(auth()->user()->level === 'superadmin')
-            <a href="{{ route('backend.users.create') }}" class="btn btn-warning mb-3 fw-bold">+ Add User</a>
+            <a href="{{ route('users.create') }}" class="btn btn-warning mb-3 fw-bold">+ Add User</a>
         @endif
 
         <div class="d-flex justify-content-end mb-3">
-            <form method="GET" action="{{ route('backend.users.index') }}">
+            <form method="GET" action="{{ route('users.index') }}">
                 <label>Search:
                     <input type="text" name="search" class="form-control form-control-sm"
                         value="{{ request('search') }}" placeholder="Cari user...">
@@ -38,6 +38,7 @@
             <thead class="table-warning">
                 <tr class="text-center">
                     <th>ID</th>
+                    <th>Profile Picture</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Alamat</th>
@@ -52,6 +53,7 @@
                 @foreach ($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
+                    <td>{{$user->image_path}}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->alamat }}</td>
@@ -60,7 +62,7 @@
 
                     @if(Auth::user()->level === 'superadmin')
                         <td>
-                            <a href="{{ route('backend.users.edit', $user->id) }}" class="btn btn-sm btn-primary fa-solid fa-pen-to-square"></a>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary fa-solid fa-pen-to-square"></a>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline delete-form">
                                 @csrf
                                 @method('DELETE')
