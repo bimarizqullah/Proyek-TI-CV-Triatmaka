@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2>Edit User</h2>
+    <h2>Edit Testimoni</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -15,43 +15,48 @@
     @endif
 
     <div class="card p-4">
-        <form action="{{ route('testimoni.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('testimoni.update', $testimoni->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+
             <div class="mb-3">
-                <label for="name" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $user->name ?? old('name') }}" required>
+                <label for="produk" class="form-label">Nama Produk</label>
+                <input type="text" name="produk" id="produk" class="form-control" value="{{ $testimoni->produk }}" required minlength="8">
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ $user->email ?? old('email') }}" required>
+                <label for="nama_pelanggan" class="form-label">Nama Pelanggan</label>
+                <input type="text" name="nama_pelanggan" id="nama_pelanggan" class="form-control" value="{{ $testimoni->nama_pelanggan }}" required minlength="8">
             </div>
 
             <div class="mb-3">
-                <label for="alamat" class="form-label">Alamat:</label>
-                <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $user->alamat ?? old('alamat') }}" required>
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <textarea name="deskripsi" id="deskripsi" class="form-control" required maxlength="255">{{ $testimoni->deskripsi }}</textarea>
             </div>
 
             <div class="mb-3">
-                <label for="level" class="form-label">Level:</label>
-                <select class="form-control" id="level" name="level" required>
-                    <option value="superadmin" {{ (isset($user) && $user->level == 'superadmin') ? 'selected' : '' }}>Super Admin</option>
-                    <option value="admin" {{ (isset($user) && $user->level == 'admin') ? 'selected' : '' }}>Admin</option>
-                </select>
-            </div>
+                <label for="image_path" class="form-label">Gambar Produk</label>
 
+                {{-- Tampilkan gambar lama jika ada --}}
+                @if ($testimoni->image_path)
+                    <div class="mb-2">
+                        <img src="{{ asset('storage/' . $testimoni->image_path) }}" 
+                             alt="Gambar Produk" 
+                             class="img-thumbnail" 
+                             width="200">
+                    </div>
+                @endif
+
+                <input type="file" name="image_path" id="image_path" class="form-control" accept="image/*">
+            </div>
 
             <div class="mb-3">
-                <label for="status" class="form-label">Status:</label>
-                <select class="form-control" id="status" name="status" required>
-                    <option value="aktif" {{ (isset($user) && $user->status == 'aktif') ? 'selected' : '' }}>Aktif</option>
-                    <option value="non-aktif" {{ (isset($user) && $user->status == 'non-aktif') ? 'selected' : '' }}>Non-Aktif</option>
-                </select>
+                <label for="rating" class="form-label">Rating</label>
+                <input type="text" name="rating" id="rating" class="form-control" value="{{ $testimoni->rating }}" required>
             </div>
-            
-            <button type="submit" class="btn btn-warning fw-bold">Save User</button>
-            <a href="{{ route('backend.users.index') }}" class="btn btn-secondary">Cancel</a>
+
+            <button type="submit" class="btn btn-warning fw-bold">Save Update</button>
+            <a href="{{ route('testimoni.index') }}" class="btn btn-danger">Cancel</a>
         </form>
     </div>
 </div>
