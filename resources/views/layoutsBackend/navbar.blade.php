@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-warning shadow rounded-3">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="{{ route('backend.users.index') }}">
+        <a class="navbar-brand d-flex align-items-center" href="{{ route('users.index') }}">
             <img src="{{ asset('images/logo.png') }}" width="50px" class="me-2">    
         </a>
 

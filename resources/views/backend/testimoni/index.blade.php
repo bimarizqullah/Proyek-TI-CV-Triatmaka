@@ -17,12 +17,13 @@
 
     <div class="testimoni mt-4">
         <h2>Testimoni</h2>
-        <a href="javascript:void(0);" class="btn btn-warning mb-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addTestimoniModal">+ Add Testimoni</a>
+        <a href="javascript:void(0);" class="btn btn-warning mb-3 fw-bold" data-bs-toggle="modal"
+            data-bs-target="#addTestimoniModal">+ Add Testimoni</a>
         <div class="d-flex justify-content-end mb-3">
             <form method="GET" action="{{ route('testimoni.index') }}">
                 <label>Search:
-                    <input type="text" name="search" class="form-control form-control-sm" 
-                        value="{{ request('search') }}" placeholder="Cari Produk...">
+                    <input type="text" name="search" class="form-control form-control-sm" value="{{ request('search') }}"
+                        placeholder="Cari Produk...">
                 </label>
                 <button type="submit" class="btn btn-primary btn-sm btn-warning">Cari</button>
             </form>
@@ -42,58 +43,63 @@
             </thead>
             <tbody>
                 @foreach ($testimoni as $testimonis)
-                <tr>
-                    <td>{{ $testimonis->id }}</td>
-                    <td>
-                        <img src="{{ asset('storage/' . $testimonis->image_path) }}" alt="Gambar Produk" width="100">
-                    </td>
-                    <td>{{ $testimonis->nama_pelanggan }}</td>
-                    <td>{{ $testimonis->catalog->produk }}</td>
-                    <td>{{ $testimonis->deskripsi }}</td>
-                    <td>{{ $testimonis->rating }}</td>
-                    <td>
-                        <a href="javascript:void(0);" 
-                           class="btn btn-sm btn-primary fa-solid fa-pen-to-square edit-button"
-                           data-id="{{ $testimonis->id }}"
-                           data-produk="{{ $testimonis->produk }}"
-                           data-nama_pelanggan="{{ $testimonis->nama_pelanggan }}"
-                           data-deskripsi="{{ $testimonis->deskripsi }}"
-                           data-image="{{ asset('storage/' . $testimonis->image_path) }}"
-                           data-rating="{{ $testimonis->rating }}"
-                           data-update-url="{{ route('testimoni.update', $testimonis->id) }}">
-                        </a>
-                        <form action="{{ route('testimoni.destroy', $testimonis->id) }}" method="POST" class="d-inline delete-form">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="btn btn-sm btn-danger delete-button fa-solid fa-trash" data-user-id="{{ $testimonis->id }}"></button>
-                        </form>
+                    <tr>
+                        <td>{{ $testimonis->id }}</td>
+                        <td>
+                            <img src="{{ asset('storage/' . $testimonis->image_path) }}" alt="Gambar Produk" width="100">
+                        </td>
+                        <td>{{ $testimonis->nama_pelanggan }}</td>
+                        <td>{{ $testimonis->catalog->produk }}</td>
+                        <td>{{ $testimonis->deskripsi }}</td>
+                        <td>{{ $testimonis->rating }}</td>
+                        <td>
+                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editTestimoniModal"
+                                class="btn btn-sm btn-primary fa-solid fa-pen-to-square edit-button"
+                                data-id="{{ $testimonis->id }}" data-produk="{{ $testimonis->catalog->id }}"
+                                data-nama_pelanggan="{{ $testimonis->nama_pelanggan }}"
+                                data-deskripsi="{{ $testimonis->deskripsi }}"
+                                data-image="{{ asset('storage/' . $testimonis->image_path) }}"
+                                data-rating="{{ $testimonis->rating }}"
+                                data-update-url="{{ route('testimoni.update', $testimonis->id) }}">
+                            </a>
+                            <form action="{{ route('testimoni.destroy', $testimonis->id) }}" method="POST"
+                                class="d-inline delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-sm btn-danger delete-button fa-solid fa-trash"
+                                    data-user-id="{{ $testimonis->id }}"></button>
+                            </form>
 
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                document.querySelectorAll('.delete-button').forEach(button => {
-                                    button.addEventListener('click', function () {
-                                        let testimoniId = this.getAttribute('data-user-id');
-                                        let form = this.closest('.delete-form'); // Ambil form terdekat dari tombol
-                        
-                                        Swal.fire({
-                                            title: "Apakah Anda yakin?",
-                                            text: "Data Produk akan dihapus secara permanen!",
-                                            icon: "warning",
-                                            showCancelButton: true,
-                                            confirmButtonColor: "#ffc107",
-                                            cancelButtonColor: "#d33",
-                                            confirmButtonText: "Ya, hapus"
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                form.submit();
-                                            }
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    document.querySelectorAll('.delete-button').forEach(button => {
+                                        button.addEventListener('click', function () {
+                                            let testimoniId = this.getAttribute('data-user-id');
+                                            let form = this.closest('.delete-form'); // Ambil form terdekat dari tombol
+
+                                            Swal.fire({
+                                                title: "Apakah Anda yakin?",
+                                                text: "Data Produk akan dihapus secara permanen!",
+                                                icon: "warning",
+                                                showCancelButton: true,
+                                                confirmButtonColor: "#ffc107",
+                                                cancelButtonColor: "#d33",
+                                                confirmButtonText: "Ya, hapus"
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    form.submit();
+                                                }
+                                            });
                                         });
                                     });
                                 });
-                            });
-                        </script>
-                    </td>
-                </tr>
+
+                                document.addEventListener('hidden.bs.modal', function () {
+                                    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+                                });
+                            </script>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -101,7 +107,8 @@
     </div>
 
     <!-- Modal Edit Testimoni -->
-    <div class="modal fade" id="editTestimoniModal" tabindex="-1" aria-labelledby="editTestimoniModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editTestimoniModal" tabindex="-1" aria-labelledby="editTestimoniModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="editForm" method="POST" enctype="multipart/form-data">
@@ -116,18 +123,25 @@
                         <input type="hidden" name="id" id="edit-id">
 
                         <div class="mb-3">
-                            <label for="edit-produk" class="form-label">Nama Produk</label>
-                            <input type="text" name="produk" id="edit-produk" class="form-control" required minlength="8">
+                            <label for="produk">Pilih Produk</label>
+                            <select name="catalog_id" id="edit-produk" class="form-control" required>
+                                <option value="" disabled selected>-- Pilih Produk --</option>
+                                @foreach ($produks as $produk)
+                                    <option value="{{ $produk->id }}">{{ $produk->produk }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="mb-3">
                             <label for="edit-nama_pelanggan" class="form-label">Nama Pelanggan</label>
-                            <input type="text" name="nama_pelanggan" id="edit-nama_pelanggan" class="form-control" required minlength="8">
+                            <input type="text" name="nama_pelanggan" id="edit-nama_pelanggan" class="form-control" required
+                                minlength="8">
                         </div>
 
                         <div class="mb-3">
                             <label for="edit-deskripsi" class="form-label">Deskripsi</label>
-                            <textarea name="deskripsi" id="edit-deskripsi" class="form-control" required maxlength="255"></textarea>
+                            <textarea name="deskripsi" id="edit-deskripsi" class="form-control" required
+                                maxlength="255"></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -153,7 +167,8 @@
     </div>
 
     <!-- Modal Add Testimoni -->
-    <div class="modal fade" id="addTestimoniModal" tabindex="-1" aria-labelledby="addTestimoniModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addTestimoniModal" tabindex="-1" aria-labelledby="addTestimoniModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form method="POST" action="{{ route('testimoni.store') }}" enctype="multipart/form-data">
@@ -165,18 +180,24 @@
                     <div class="modal-body">
 
                         <div class="mb-3">
-                            <label for="add-produk" class="form-label">Nama Produk</label>
-                            <input type="text" name="produk" id="add-produk" class="form-control" required minlength="8">
+                            <label for="produk">Pilih Produk</label>
+                            <select name="catalog_id" id="catalog_id" class="form-control" required>
+                                <option value="" disabled selected>-- Pilih Produk --</option>
+                                @foreach ($produks as $produk)
+                                    <option value="{{ $produk->id }}">{{ $produk->produk }}</option>
+                                @endforeach
+                            </select>
                         </div>
-
                         <div class="mb-3">
                             <label for="add-nama_pelanggan" class="form-label">Nama Pelanggan</label>
-                            <input type="text" name="nama_pelanggan" id="add-nama_pelanggan" class="form-control" required minlength="8">
+                            <input type="text" name="nama_pelanggan" id="add-nama_pelanggan" class="form-control" required
+                                minlength="8">
                         </div>
 
                         <div class="mb-3">
                             <label for="add-deskripsi" class="form-label">Deskripsi</label>
-                            <textarea name="deskripsi" id="add-deskripsi" class="form-control" required maxlength="255"></textarea>
+                            <textarea name="deskripsi" id="add-deskripsi" class="form-control" required
+                                maxlength="255"></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -218,13 +239,14 @@
                     document.getElementById('edit-preview-image').src = image;
                     document.getElementById('edit-rating').value = rating;
 
-                    // Set action form
                     document.getElementById('editForm').action = updateUrl;
 
+                    // Tampilkan modal
                     const modal = new bootstrap.Modal(document.getElementById('editTestimoniModal'));
                     modal.show();
                 });
             });
         });
+
     </script>
 @endsection

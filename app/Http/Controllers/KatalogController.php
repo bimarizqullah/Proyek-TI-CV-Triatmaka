@@ -12,6 +12,7 @@ class KatalogController extends Controller
 {
     public function index(Request $request, Catalog $catalog)
     {
+        $produks=Catalog::all();
         $search = $request->input('search');
 
         // Menambahkan fitur pencarian

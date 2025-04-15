@@ -33,7 +33,7 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
 Route::middleware(['auth', CheckUserStatus::class, SuperUser::class])->group(function () {
     Route::resource('/admin/users', UserController::class);
 });
-
+ 
 // Rute CRUD Katalog (Bisa diakses oleh Admin dan Super Admin)
 Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::resource('/admin/katalog', KatalogController::class);
@@ -44,8 +44,6 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::resource('/admin/testimoni', TestimoniController::class);
 });
 
+Route::middleware('auth')->post('/change-password', [UserController::class, 'changePassword'])->name('password.update');
 
-// Rute Admin Dashboard
-Route::middleware(['auth', CheckUserStatus::class])->group(function () {
-    Route::get('/admin/users/index', [UserController::class, 'index'])->name('backend.users.index');
-});
+

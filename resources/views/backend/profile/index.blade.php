@@ -1,6 +1,23 @@
 @extends('layoutsBackend.app')
 
 @section('content')
+@if(session('success'))
+                        <div class="alert alert-success" aria-label="Close">{{ session('success') }}</div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger" aria-label="Close">{{ session('error') }}</div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 <div class="container-fluid py-4">
     <div class="row">
         <!-- Sidebar Profil -->
@@ -77,7 +94,7 @@
                     <div class="row mb-3">
                         <label class="col-md-3 col-form-label">Password</label>
                         <div class="col-md-9">
-                            <a href="#" class="btn btn-outline-secondary btn-sm">Ubah Password</a>
+                            <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Ubah Password</a>
                         </div>
                     </div>
                 </div>
@@ -147,6 +164,44 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-warning">Simpan</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ganti Password -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="{{ route('password.update') }}">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Ganti Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="current_password">Password Lama</label>
+                        <input type="password" name="current_password" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="new_password">Password Baru</label>
+                        <input type="password" name="new_password" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="new_password_confirmation">Konfirmasi Password Baru</label>
+                        <input type="password" name="new_password_confirmation" class="form-control" required>
+                    </div>                    
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning fw-bold">Update Password</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
                 </div>
             </form>
         </div>

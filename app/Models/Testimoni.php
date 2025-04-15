@@ -18,7 +18,7 @@ class Testimoni extends Model
     protected $fillable = [
         'image_path',
         'nama_pelanggan',
-        'produk',
+        'catalog_id',
         'deskripsi',
         'rating',
         'users_id'
@@ -31,6 +31,6 @@ class Testimoni extends Model
     }
     public function catalog()
     {
-        return $this->belongsTo(Catalog::class, 'produk');
+        return $this->belongsTo(Catalog::class, 'catalog_id');
     }
 }
