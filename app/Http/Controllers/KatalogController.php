@@ -18,7 +18,7 @@ class KatalogController extends Controller
         // Menambahkan fitur pencarian
         $catalog = Catalog::when($search, function ($query) use ($search) {
             $query->where('produk', 'like', "%{$search}%");
-        })->paginate(10); // Menggunakan pagination
+        })->paginate(10); // Menggunakan paginatio
         return view('backend.katalog.index', compact('catalog'));
     }
 

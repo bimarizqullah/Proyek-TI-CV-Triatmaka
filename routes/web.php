@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontendCatalogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
@@ -44,6 +45,8 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::resource('/admin/testimoni', TestimoniController::class);
 });
 
+
 Route::middleware('auth')->post('/change-password', [UserController::class, 'changePassword'])->name('password.update');
+
 
 
