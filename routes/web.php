@@ -14,6 +14,7 @@ use App\Http\Middleware\SuperUser;
 
 // Rute Dashboard Frontend
 Route::get('/', [DashboardController::class, 'index']);
+Route::get('/beranda', [DashboardController::class, 'beranda']);
 
 // Rute untuk login
 Route::get('admin/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
