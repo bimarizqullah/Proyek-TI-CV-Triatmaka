@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catalog;
+
+
 
 class DashboardController extends Controller
 {
@@ -10,6 +13,7 @@ class DashboardController extends Controller
     }
 
     public function beranda(){
-        return view('frontend.beranda');
+        $katalog = Catalog::all();
+        return view('frontend.beranda', compact('katalog'));
     }
 }
