@@ -8,4 +8,8 @@ class DashboardController
     public function index(){
         return view('frontend.dashboard');
     }
+
+    public function beranda(){
+        return view('frontend.beranda');
+    }
 }
