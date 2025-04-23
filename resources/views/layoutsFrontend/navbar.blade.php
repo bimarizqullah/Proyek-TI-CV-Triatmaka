@@ -5,8 +5,8 @@
       <img src="{{ asset('images/logo.png') }}" width="50px" class="me-3">
     </a>
     <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto font-apple">
-        <li class="nav-item"><a class="nav-link" href="/">Beranda</a></li>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/beranda">Beranda</a></li>
         <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
         <li class="nav-item"><a class="nav-link" href="#produk">Produk</a></li>
         <li class="nav-item"><a class="nav-link" href="#kontak">Testimoni</a></li>
@@ -23,3 +23,5 @@
     </div>
   </div>
 </nav>
+
+

@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ asset('css/style.css?v=2') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <!-- AOS JS -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
@@ -32,8 +33,15 @@
             height: 250px;
             object-fit: contain;
         }
+
+        .navbar-nav .nav-link,
+        .form-control,
+        .input-group-text {
+            font-family: 'Poppins', sans-serif;
+        }
     </style>
 </head>
+
 <body>
     <main class="container-fluid p-0">
         @include('layoutsFrontend.navbar')
@@ -41,6 +49,7 @@
     </main>
     @include('layoutsFrontend.footer')
 </body>
+
 </html>
 <script>
     let prevScrollPos = window.pageYOffset;
