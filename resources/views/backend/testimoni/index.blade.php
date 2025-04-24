@@ -58,7 +58,7 @@
                                 data-id="{{ $testimonis->id }}" data-produk="{{ $testimonis->catalog->id }}"
                                 data-nama_pelanggan="{{ $testimonis->nama_pelanggan }}"
                                 data-deskripsi="{{ $testimonis->deskripsi }}"
-                                data-image="{{ asset('storage/' . $testimonis->imag e_path) }}"
+                                data-image="{{ asset('storage/' . $testimonis->image_path) }}"
                                 data-rating="{{ $testimonis->rating }}"
                                 data-update-url="{{ route('testimoni.update', $testimonis->id) }}">
                             </a>

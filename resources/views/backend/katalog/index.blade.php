@@ -88,7 +88,7 @@
 
                         <div class="mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea name="deskripsi" id="deskripsi" class="form-control" required></textarea>
+                            <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Max. 200 karakter" required></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -128,7 +128,7 @@
 
                         <div class="mb-3">
                             <label for="edit-deskripsi" class="form-label">Deskripsi</label>
-                            <textarea name="deskripsi" id="edit-deskripsi" class="form-control" required></textarea>
+                            <textarea name="deskripsi" id="edit-deskripsi" class="form-control" placeholder="Max. 200 karakter" required></textarea>
                         </div>
 
                         <div class="mb-3">
