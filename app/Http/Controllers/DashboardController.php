@@ -9,7 +9,7 @@ class DashboardController
         return view('frontend.dashboard');
     }
 
-    public function beranda(){
+    public function (){
         return view('frontend.beranda');
     }
 }
