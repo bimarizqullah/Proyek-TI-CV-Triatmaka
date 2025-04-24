@@ -190,6 +190,15 @@
 .card-hover:hover .overlay-text {
     opacity: 1; /* Teks muncul saat hover */
 }
+.img-thumbnail {
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.img-thumbnail:hover {
+    transform: scale(1.05);
+}
 
 
 

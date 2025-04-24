@@ -9,9 +9,10 @@
         <div class="row g-4 justify-content-center">
             @foreach ($katalog as $index => $item)
 
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ 100 + $index * 100 }}">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ 100 + $index * 100 }}">
+                <a href="{{ route('produk.show', $item->id) }}" class="text-decoration-none">
                     <div class="bg-white rounded-4 shadow-lg text-center h-100 card-hover">
-                        <div class="image-container mb-3">
+                        <div class="image-container mb-3 position-relative">
                             <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->produk }}"
                                 class="img-fluid rounded-4">
                             <div class="overlay-text">
@@ -20,7 +21,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+            </div>
 
             @endforeach
         </div>
