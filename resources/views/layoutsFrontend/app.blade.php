@@ -28,6 +28,11 @@
             background-size: cover;
             color: white;
             padding: 100px 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .product-img {
@@ -39,6 +44,41 @@
         .form-control,
         .input-group-text {
             font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navbar fixed untuk tampil tetap di atas */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .content {
+            padding-top: 70px;
+            /* Agar konten tidak tertutup navbar */
+        }
+
+        /* Responsif pada tablet (max-width: 768px) */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 50px 0;
+            }
+
+            .product-img {
+                height: 200px;
+            }
+        }
+
+        /* Responsif pada ponsel (max-width: 576px) */
+        @media (max-width: 576px) {
+            .hero {
+                padding: 30px 0;
+            }
+
+            .product-img {
+                height: 150px;
+            }
         }
     </style>
 </head>

@@ -15,7 +15,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Rute Dashboard Frontend
 Route::get('/', [DashboardController::class, 'index']);
-Route::get('/beranda', [DashboardController::class, 'beranda']);
+Route::get('/beranda', [DashboardController::class, 'berandaKatalog']);
 Route::get('/detail-produk/{id}', [DashboardController::class, 'show'])->name('produk.show');
 
 
