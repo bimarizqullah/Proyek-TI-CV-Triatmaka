@@ -1,4 +1,4 @@
-<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-warning fixed-top shadow mx-auto rounded-3 m-3" style="width: 60%; transition: top 0.3s; ">
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-warning fixed-top shadow mx-auto rounded-5 m-3" style="width: 70%; transition: top 0.3s; ">
   <div class="container-fluid">
     <!-- Logo -->
     <a class="navbar-brand d-flex align-items-center" href="#">
