@@ -11,10 +11,13 @@ use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Middleware\CheckUserStatus;
 use App\Http\Middleware\SuperUser;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Rute Dashboard Frontend
 Route::get('/', [DashboardController::class, 'index']);
 Route::get('/beranda', [DashboardController::class, 'beranda']);
+Route::get('/detail-produk/{id}', [DashboardController::class, 'show'])->name('produk.show');
+
 
 // Rute untuk login
 Route::get('admin/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
