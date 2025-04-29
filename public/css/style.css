@@ -202,6 +202,12 @@
 .img-thumbnail:hover {
     transform: scale(1.05);
 }
+.sosmed-icon {
+    margin-left: 50px;
+}
+.sosmed-icon:first-child {
+    margin-left: 0;
+}
 
 
 

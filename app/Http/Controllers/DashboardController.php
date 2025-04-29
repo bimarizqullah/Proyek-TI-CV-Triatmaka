@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalog;
+use App\Models\Testimoni;
 
 class DashboardController extends Controller
 {
     public function index(){
         return view('frontend.dashboard');
     }
-    public function berandaKatalog(){
+    public function beranda(){
         $katalog = Catalog::all();
-        return view('frontend.beranda', compact('katalog'));
+        $testimoni =Testimoni::all();
+        return view('frontend.beranda', compact('katalog', 'testimoni'));
     }
 
     public function show($id)
