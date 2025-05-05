@@ -29,22 +29,8 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'alamat' => 'required|string',
-            'password' => 'required|string|min:8',
-            'level' => 'required|in:superadmin,admin',
-            'status' => 'required|in:aktif,non-aktif',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:10240',
-        ]);
-
-        $validated['password'] = bcrypt($request->password);
-        if ($request->hasFile('image_path')) {
-            $fotoPath = $request->file('image_path')->store('public/profile');
-            $validated['image_path'] = basename($fotoPath);
-        }
-        User::addUser($validated);
+        User::validateData($request);
+        User::addUser($request);
         return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan');
     }
 
@@ -57,21 +43,9 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'image_path' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'alamat' => 'required|string|max:255',
-            'level' => 'required|in:superadmin,admin',
-            'status' => 'required|in:aktif,non-aktif',
-        ]);
-
-        $data = $request->all();
-
-        if ($file = $request->file('image_path')) {
-            $data['image_path'] = $file->store('profile', 'public');
-        }
-        User::updateUser($data, $id);
+        $request->merge(['id' => $id]);
+        User::validateData($request, true);
+        User::updateUser($request, $id);
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 

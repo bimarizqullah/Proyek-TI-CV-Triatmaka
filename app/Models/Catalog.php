@@ -42,21 +42,44 @@ class Catalog extends Model
         return self::create($data);
     }
 
-    public static function updateCatalog($data, $id) {
+    public static function updateCatalog(Request $request, $id) {
         $catalog = Catalog::findOrFail($id);
 
-        $catalog->image_path = $data['image_path'];
-        $catalog->produk = $data['produk'];
-        $catalog->deskripsi = $data['deskripsi'];
+        $catalog->produk = $request->produk;
+        $catalog->deskripsi = $request->deskripsi;
         $catalog->users_id = Auth::id();
 
-        if (isset($data['image_path']) && is_string($data['image_path'])) {
+        if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
             if ($catalog->image_path && Storage::disk('public')->exists($catalog->image_path)) {
                 Storage::disk('public')->delete($catalog->image_path);
             }
-            $catalog->image_path = $data['image_path'];
+            $catalog->image_path = $request->file('image_path')->store('catalog_images', 'public');
         }
         return $catalog->save();
+    }
+
+    public static function validateData(Request $request, $isUpdate = false)
+    {
+        $rules = [
+            'produk' => 'required|string|min:8',
+            'deskripsi' => 'required|string|max:255',
+        ];
+
+        if ($isUpdate) {
+            $rules['image_path'] = 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240';
+        } else {
+            $rules['image_path'] = 'required|image|mimes:jpeg,png,jpg,gif|max:10240';
+        }
+
+        return $request->validate($rules);
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        if ($search) {
+            $query->where('produk', 'like', "%{$search}%");
+        }
+        return $query;
     }
 
     public function user()

@@ -13,9 +13,7 @@ class KatalogController extends Controller
     {
         $catalogs = Catalog::all();
         $search = $request->input('search');
-        $catalog = Catalog::when($search, function ($query) use ($search) {
-            $query->where('produk', 'like', "%{$search}%");
-        })->paginate(10);
+        $catalog = Catalog::search($search)->paginate(10);
         return view('backend.katalog.index', compact('catalog', 'catalogs'));
     }
 
@@ -27,31 +25,15 @@ class KatalogController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'produk' => 'required|string|min:8',
-            'deskripsi' => 'required|string|max:255',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
-        ]);
-        
+        Catalog::validateData($request);
         Catalog::addCatalog($request);
-
         return redirect()->route('katalog.index')->with('success', 'Catalog added successfully');
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'produk' => 'required|string|min:8',
-            'deskripsi' => 'required|string|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
-        ]);
-
-        $data = $request->all();
-
-        if ($file = $request->file('image_path')) {
-            $data['image_path'] = $file->store('catalog_images', 'public');
-        }
-        Catalog::updateCatalog($data, $id);
+        Catalog::validateData($request, true);
+        Catalog::updateCatalog($request, $id);
         return redirect()->route('katalog.index')->with('success', 'Catalog updated successfully');
     }
 
