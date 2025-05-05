@@ -4,27 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalog;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+
 
 
 class KatalogController extends Controller
 {
     public function index(Request $request, Catalog $catalog)
     {
-        $produks=Catalog::all();
+        $catalogs = Catalog::all();
         $search = $request->input('search');
-
-        // Menambahkan fitur pencarian
         $catalog = Catalog::when($search, function ($query) use ($search) {
             $query->where('produk', 'like', "%{$search}%");
-        })->paginate(10); // Menggunakan paginatio
-        return view('backend.katalog.index', compact('catalog'));
+        })->paginate(10);
+        return view('backend.katalog.index', compact('catalog', 'catalogs'));
     }
 
     public function create()
     {
-        return view('backend.katalog.create');
+        $catalog = Catalog::all();
+        return view('backend.katalog.create', compact('catalog'));
     }
 
     public function store(Request $request)
@@ -35,26 +33,12 @@ class KatalogController extends Controller
             'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
         
-        // Simpan gambar ke storage dan dapatkan path-nya
-        $imagePath = $request->file('image_path')->store('catalog_images', 'public');
-
-        if (Auth::check()) {
-            // Simpan gambar ke storage dan dapatkan path-nya
-            $imagePath = $request->file('image_path')->store('catalog_images', 'public');
-    
-            // Menyimpan data katalog
-            Catalog::create([
-                'produk' => $request->produk,
-                'deskripsi' => $request->deskripsi,
-                'image_path' => $imagePath,
-                'users_id' => Auth::user()->id,  // Menyertakan ID pengguna yang login
-            ]);
+        Catalog::addCatalog($request);
 
         return redirect()->route('katalog.index')->with('success', 'Catalog added successfully');
     }
-}
 
-    public function update(Request $request, Catalog $katalog)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'produk' => 'required|string|min:8',
@@ -62,27 +46,12 @@ class KatalogController extends Controller
             'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
 
-        // Cek apakah ada file baru yang diunggah
-        if ($request->hasFile('image_path')) {
-        
-            if ($katalog->image_path && Storage::disk('public')->exists($katalog->image_path)) {
-                Storage::disk('public')->delete($katalog->image_path);
-            }
+        $data = $request->all();
 
-            $imagePath = $request->file('image_path')->store('catalog_images', 'public');
-            $katalog->update([
-                'produk' => $request->produk,
-                'deskripsi' => $request->deskripsi,
-                'image_path' => $imagePath,
-            ]);
-
-        } else {
-            $katalog->update([
-                'produk' => $request->produk,
-                'deskripsi' => $request->deskripsi,
-            ]);
+        if ($file = $request->file('image_path')) {
+            $data['image_path'] = $file->store('catalog_images', 'public');
         }
-
+        Catalog::updateCatalog($data, $id);
         return redirect()->route('katalog.index')->with('success', 'Catalog updated successfully');
     }
 

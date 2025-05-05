@@ -29,77 +29,49 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'alamat' => 'required|string',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
             'level' => 'required|in:superadmin,admin',
             'status' => 'required|in:aktif,non-aktif',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:10240',
         ]);
 
-        $imagePath = null;
-
+        $validated['password'] = bcrypt($request->password);
         if ($request->hasFile('image_path')) {
-            $imagePath = $request->file('image_path')->store('profile', 'public');
+            $fotoPath = $request->file('image_path')->store('public/profile');
+            $validated['image_path'] = basename($fotoPath);
         }
-
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'alamat' => $request->alamat,
-            'password' => hash::make($request->password),
-            'level' => $request->level,
-            'status' => $request->status,
-            'image_path' => $imagePath,
-        ]);
-
+        User::addUser($validated);
         return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan');
     }
 
 
-    public function edit(User $user)
+    public function edit($id)
     {
+        $user = User::findOrFail($id);
         return view('backend.users.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'image_path' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'alamat' => 'required|string|max:255',
             'level' => 'required|in:superadmin,admin',
             'status' => 'required|in:aktif,non-aktif',
         ]);
 
-        if ($request->hasFile('image_path')) {
+        $data = $request->all();
 
-            if ($user->image_path && Storage::disk('public')->exists($user->image_path)) {
-                Storage::disk('public')->delete($user->image_path);
-            }
-
-            $image_path = $request->file('image_path')->store('profile', 'public');
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'alamat' => $request->alamat,
-                'level' => $request->level,
-                'status' => $request->status,
-                'image_path' => $image_path,
-            ]);
-        } else {
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'alamat' => $request->alamat,
-                'level' => $request->level,
-                'status' => $request->status,
-                'image_path' => $request->image_path,
-            ]);
+        if ($file = $request->file('image_path')) {
+            $data['image_path'] = $file->store('profile', 'public');
         }
+        User::updateUser($data, $id);
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 

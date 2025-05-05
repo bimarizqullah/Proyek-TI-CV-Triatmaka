@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($catalog as $katalog)
+                @foreach ($catalogs as $katalog)
                 <tr>
                     <td>{{ $katalog->id }}</td>
                     <td>
