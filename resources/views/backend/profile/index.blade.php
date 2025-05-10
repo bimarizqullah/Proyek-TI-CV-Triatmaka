@@ -18,7 +18,7 @@
                             </ul>
                         </div>
                     @endif
-<div class="container-fluid py-4">
+<div class="profile container-fluid py-4">
     <div class="row">
         <!-- Sidebar Profil -->
         <div class="col-md-3">

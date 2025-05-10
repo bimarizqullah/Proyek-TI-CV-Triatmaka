@@ -56,7 +56,7 @@
     animation: fadeIn-X 1.5s forwards;
 }
 
-.catalog,
+.catalog,.testimoni, .profile,
 .user {
     animation: fadeInX 1.5s forwards;
 }

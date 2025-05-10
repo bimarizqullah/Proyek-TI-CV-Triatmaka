@@ -3,7 +3,7 @@
         <img src="{{ Auth::user()->image_path ? asset('storage/' . Auth::user()->image_path) : asset('storage/profile/default.png') }}"
         class="rounded-circle mb-3" width="150" height="150" alt="Profile Picture">
         <h4 class="fw-bold">{{ Auth::user()->name }}</h4>
-        <p>{{ Auth::user()->email }}</p>
+        <p class="pr-2">{{ Auth::user()->email }}</p>
     </div>
     <hr>
     <h6 class="text-uppercase text-dark px-3">Settings</h6>
@@ -36,6 +36,12 @@
             <a href="{{ route('testimoni.index') }}" 
                class="nav-link text-dark {{ request()->is('admin/testimoni*') ? 'active text-white rounded' : '' }}">
                 <i class="bi bi-person fa-solid fa-briefcase"></i> Testimoni
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('variant.index') }}" 
+               class="nav-link text-dark {{ request()->is('admin/variant*') ? 'active text-white rounded' : '' }}">
+                <i class="bi bi-person fa-solid fa-briefcase"></i> Variant
             </a>
         </li>
     </ul>

@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\TestimoniController;
+use App\Http\Controllers\VariantController;
 use App\Http\Middleware\CheckUserStatus;
 use App\Http\Middleware\SuperUser;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -39,15 +40,13 @@ Route::middleware(['auth', CheckUserStatus::class, SuperUser::class])->group(fun
     Route::resource('/admin/users', UserController::class);
 });
  
-// Rute CRUD Katalog (Bisa diakses oleh Admin dan Super Admin)
+// Rute CRUD  (Bisa diakses oleh Admin dan Super Admin)
 Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::resource('/admin/katalog', KatalogController::class);
+    Route::resource('/admin/testimoni', TestimoniController::class);
+    Route::resource('/admin/variant', VariantController::class);
 });
 
-// Rute CRUD Testimoni (Bisa diakses oleh Admin dan Super Admin)
-Route::middleware(['auth', CheckUserStatus::class])->group(function () {
-    Route::resource('/admin/testimoni', TestimoniController::class);
-});
 
 
 Route::middleware('auth')->post('/change-password', [UserController::class, 'changePassword'])->name('password.update');

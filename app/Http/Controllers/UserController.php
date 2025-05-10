@@ -13,18 +13,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-
-        // Menambahkan fitur pencarian
-        $users = User::when($search, function ($query) use ($search) {
-            $query->where('name', 'like', "%{$search}%");
-        })->paginate(10); // Menggunakan pagination
-
+        $users = User::search($search)->paginate(10);
         return view('backend.users.index', compact('users'));
-    }
-
-    public function create()
-    {
-        return view('backend.users.create');
     }
 
     public function store(Request $request)
@@ -34,13 +24,6 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan');
     }
 
-
-    public function edit($id)
-    {
-        $user = User::findOrFail($id);
-        return view('backend.users.edit', compact('user'));
-    }
-
     public function update(Request $request, $id)
     {
         $request->merge(['id' => $id]);
@@ -48,8 +31,6 @@ class UserController extends Controller
         User::updateUser($request, $id);
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
-
-
     public function destroy(User $user)
     {
         $user->delete();
