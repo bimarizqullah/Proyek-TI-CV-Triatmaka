@@ -8,15 +8,10 @@
 
         <div class="d-flex justify-content-center sosmed-icon">
             <div class="d-flex flex-row justify-content-end gap-4">
-                <a href="https://instagram.com/yan_leyan" class="text-white text-decoration-none">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="100" height="100" alt="Instagram">
-                </a>
-                <a href="https://youtube.com/@manisrejo.official" class="text-white text-decoration-none">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="100" height="100" alt="YouTube">
-                </a>
-                <a href="https://tiktok.com/@barleyan_tigo" class="text-white text-decoration-none">
-                    <img src="images/tiktok.png" width="110" height="110" alt="TikTok">
-                </a>
+                
+                <a href="https://instagram.com/yan_leyan" class="text-white text-decoration-none"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://youtube.com/@manisrejo.official" class="text-white text-decoration-none"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://tiktok.com/@barleyan_tigo" class="text-white text-decoration-none"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
     </div>
