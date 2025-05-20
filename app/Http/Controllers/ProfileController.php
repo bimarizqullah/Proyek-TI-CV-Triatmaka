@@ -16,6 +16,7 @@ class ProfileController extends Controller
         return view('backend.profile.index', compact('users'));
     }
     public function edit(User $user)
+    
     {
         return view('backend.profile.edit', compact('user'));
     }

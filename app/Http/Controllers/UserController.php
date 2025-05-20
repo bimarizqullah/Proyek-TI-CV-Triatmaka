@@ -39,22 +39,14 @@ class UserController extends Controller
 
     public function changePassword(Request $request)
     {
-        // Validasi input
         $request->validate([
             'current_password' => 'required',
-            'new_password' => 'required|confirmed|min:8',  // Pastikan ada konfirmasi password
+            'new_password' => 'required|confirmed|min:8',
         ]);
-
-        // Ambil user yang sedang login
         $user = Auth::user();
-
-        // Cek apakah password lama yang dimasukkan cocok dengan password yang tersimpan di database
         if (!Hash::check($request->current_password, $user->password)) {
-            // Jika password lama tidak cocok, kembalikan dengan error
             return back()->with('error', 'Password lama salah');
         }
-
-        // Update password langsung menggunakan query builder
         User::where('id', $user->id)
             ->update([
                 'password' => Hash::make($request->new_password)

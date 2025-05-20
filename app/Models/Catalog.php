@@ -24,6 +24,8 @@ class Catalog extends Model
         'produk',
         'deskripsi',
         'users_id',
+        'variant',
+        'harga'
     ];
 
     public static function addCatalog(Request $request)
@@ -32,6 +34,8 @@ class Catalog extends Model
             'users_id'=>Auth::id(),
             'produk' => $request->produk,
             'deskripsi'=>$request->deskripsi,
+            'variant'=>$request->variant,
+            'harga'=>$request->harga
 
         ];
         if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
@@ -47,6 +51,8 @@ class Catalog extends Model
 
         $catalog->produk = $request->produk;
         $catalog->deskripsi = $request->deskripsi;
+        $catalog->variant = $request->variant;
+        $catalog->harga = $request->harga;
         $catalog->users_id = Auth::id();
 
         if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
@@ -63,6 +69,8 @@ class Catalog extends Model
         $rules = [
             'produk' => 'required|string|min:8',
             'deskripsi' => 'required|string|max:255',
+            'variant' => 'required|string',
+            'harga' => 'required|integer'
         ];
 
         if ($isUpdate) {

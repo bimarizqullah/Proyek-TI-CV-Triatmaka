@@ -33,6 +33,8 @@
                     <th>ID</th>
                     <th>Gambar</th>
                     <th>Produk</th>
+                    <th>Variant</th>
+                    <th>Harga</th>
                     <th>Deskripsi</th>
                     <th>Action</th>
                 </tr>
@@ -46,6 +48,8 @@
                     </td>
                     <td>{{ $katalog->produk }}</td>
                     <td>{{ $katalog->deskripsi }}</td>
+                    <td>{{ $katalog->variant }}</td>
+                    <td>{{ $katalog->harga }}</td>
                     <td>
                         <!-- Button untuk memicu modal edit -->
                         <a href="javascript:void(0);" class="btn btn-sm btn-primary fa-solid fa-pen-to-square edit-button"
@@ -87,8 +91,18 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="variant" class="form-label">Variant</label>
+                            <input type="text" name="variant" id="variant" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="harga" class="form-label">Harga</label>
+                            <input type="number" name="harga" id="harga" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Max. 200 karakter" required></textarea>
+                            <textarea style="resize: none;" name="deskripsi" id="deskripsi" class="form-control" placeholder="Max. 200 karakter" required></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -132,6 +146,16 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="edit-variant" class="form-label">Variant</label>
+                            <input type="text" name="variant" id="edit-variant" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edit-harga" class="form-label">Harga</label>
+                            <input type="number" name="harga" id="edit-harga" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="edit-image_path" class="form-label">Gambar Produk</label>
                             <div class="mb-2">
                                 <img id="edit-preview-image" src="" class="img-thumbnail" width="200">
@@ -161,8 +185,10 @@
 
                     // Set data ke modal
                     document.getElementById('edit-catalog-id').value = id;
-                    document.getElementById('edit-produk').value = produk;
+                    document.getElementById('edit-produk').value =  produk;
                     document.getElementById('edit-deskripsi').value = deskripsi;
+                    document.getElementById('edit-variant').value = variant;
+                    document.getElementById('edit-harga').value = harga;
                     document.getElementById('edit-preview-image').src = image;
 
                     // Set action form
