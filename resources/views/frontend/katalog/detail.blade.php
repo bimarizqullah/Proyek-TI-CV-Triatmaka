@@ -23,14 +23,6 @@
             <!-- Harga Dinamis -->
             <h3 class="text-danger fw-bold mb-4" id="hargaProduk">Rp {{ number_format(899000, 0, ',', '.') }}</h3>
 
-            <!-- Pilih Produk -->
-            <p class="mb-1 fw-semibold">Pilih Produk</p>
-            <div class="d-flex gap-2 mb-3">
-                @foreach(['Sapi', 'Ayam', 'Lele'] as $produk)
-                <button class="btn btn-outline-secondary btn-sm produk-btn" data-value="{{ $produk }}">{{ $produk }}</button>
-                @endforeach
-            </div>
-
             <!-- Pilih Rasa -->
             <p class="mb-1 fw-semibold">Pilih Rasa</p>
             <div class="d-flex gap-2 mb-3">
@@ -58,8 +50,11 @@
 
             <!-- Tombol Buy Now -->
             <div class="d-flex gap-2 mt-4">
-                <button class="btn btn-primary px-4">Buy Now</button>
+                <a href="https://wa.me/62895395756124" target="_blank" class="btn btn-primary px-4">
+                    Buy Now
+                </a>
             </div>
+
 
             <!-- Tombol Kembali -->
             <div class="mt-4">
@@ -71,52 +66,58 @@
 
 <!-- CSS -->
 <style>
-.row.g-0 {
-    height: 100%;
-    min-height: 600px;
-}
+    .row.g-0 {
+        height: 100%;
+        min-height: 600px;
+    }
+
+    .btn.active {
+        background-color: #0d6efd;
+        color: white;
+        border-color: #0d6efd;
+    }
 </style>
 
 <!-- Data Harga dan Script -->
 @php
-    $hargaVarian = [
-        'Sapi' => [
-            'Original' => [
-                '500g' => 899000,
-                '750g' => 1049000,
-                '1kg' => 1199000,
-            ],
-            'Pedas' => [
-                '500g' => 909000,
-                '750g' => 1059000,
-                '1kg' => 1209000,
-            ],
-        ],
-        'Ayam' => [
-            'Original' => [
-                '500g' => 799000,
-                '750g' => 949000,
-                '1kg' => 1099000,
-            ],
-            'Pedas' => [
-                '500g' => 809000,
-                '750g' => 959000,
-                '1kg' => 1109000,
-            ],
-        ],
-        'Lele' => [
-            'Original' => [
-                '500g' => 699000,
-                '750g' => 849000,
-                '1kg' => 999000,
-            ],
-            'Pedas' => [
-                '500g' => 709000,
-                '750g' => 859000,
-                '1kg' => 1009000,
-            ],
-        ],
-    ];
+$hargaVarian = [
+'Sapi' => [
+'Original' => [
+'500g' => 899000,
+'750g' => 1049000,
+'1kg' => 1199000,
+],
+'Pedas' => [
+'500g' => 909000,
+'750g' => 1059000,
+'1kg' => 1209000,
+],
+],
+'Ayam' => [
+'Original' => [
+'500g' => 799000,
+'750g' => 949000,
+'1kg' => 1099000,
+],
+'Pedas' => [
+'500g' => 809000,
+'750g' => 959000,
+'1kg' => 1109000,
+],
+],
+'Lele' => [
+'Original' => [
+'500g' => 699000,
+'750g' => 849000,
+'1kg' => 999000,
+],
+'Pedas' => [
+'500g' => 709000,
+'750g' => 859000,
+'1kg' => 1009000,
+],
+],
+];
 @endphp
 
 <script>
@@ -137,26 +138,50 @@
         }).format(angka);
     };
 
+    // Tambah fungsi update tombol aktif
+    function setActiveButton(buttons, clickedButton) {
+        buttons.forEach(btn => btn.classList.remove('active'));
+        clickedButton.classList.add('active');
+    }
+
     // Event klik produk
-    document.querySelectorAll('.produk-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
+    const produkButtons = document.querySelectorAll('.produk-btn');
+    produkButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
             selectedProduk = this.dataset.value;
+            setActiveButton(produkButtons, this);
             updateHarga();
         });
     });
 
     // Event klik rasa
-    document.querySelectorAll('.rasa-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
+    const rasaButtons = document.querySelectorAll('.rasa-btn');
+    rasaButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
             selectedRasa = this.dataset.value;
+            setActiveButton(rasaButtons, this);
+
+            // Pilih otomatis ukuran default (misalnya 500g)
+            selectedUkuran = '500g';
+            ukuranButtons.forEach(ukuranBtn => {
+                if (ukuranBtn.dataset.value === '500g') {
+                    ukuranBtn.classList.add('active');
+                } else {
+                    ukuranBtn.classList.remove('active');
+                }
+            });
+
             updateHarga();
         });
     });
 
+
     // Event klik ukuran
-    document.querySelectorAll('.ukuran-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
+    const ukuranButtons = document.querySelectorAll('.ukuran-btn');
+    ukuranButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
             selectedUkuran = this.dataset.value;
+            setActiveButton(ukuranButtons, this);
             updateHarga();
         });
     });
@@ -168,4 +193,5 @@
         }
     }
 </script>
+
 @endsection
