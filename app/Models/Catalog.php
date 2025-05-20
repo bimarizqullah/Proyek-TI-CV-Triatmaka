@@ -25,6 +25,7 @@ class Catalog extends Model
         'deskripsi',
         'users_id',
         'variant',
+        'ukuran',
         'harga'
     ];
 
@@ -35,6 +36,7 @@ class Catalog extends Model
             'produk' => $request->produk,
             'deskripsi'=>$request->deskripsi,
             'variant'=>$request->variant,
+            'ukuran'=>$request->ukuran,
             'harga'=>$request->harga
 
         ];
@@ -51,6 +53,7 @@ class Catalog extends Model
 
         $catalog->produk = $request->produk;
         $catalog->deskripsi = $request->deskripsi;
+        $catalog->ukuran = $request->ukuran;
         $catalog->variant = $request->variant;
         $catalog->harga = $request->harga;
         $catalog->users_id = Auth::id();
@@ -69,7 +72,8 @@ class Catalog extends Model
         $rules = [
             'produk' => 'required|string|min:8',
             'deskripsi' => 'required|string|max:255',
-            'variant' => 'required|string',
+            'variant' => 'required|in:original,pedas',
+            'ukuran' => 'required|in:80,100,250,500,1000',
             'harga' => 'required|integer'
         ];
 

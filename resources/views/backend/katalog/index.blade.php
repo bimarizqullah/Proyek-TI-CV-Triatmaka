@@ -33,9 +33,10 @@
                     <th>ID</th>
                     <th>Gambar</th>
                     <th>Produk</th>
+                    <th>Deskripsi</th>
+                    <th>Ukuran</th>
                     <th>Variant</th>
                     <th>Harga</th>
-                    <th>Deskripsi</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -48,6 +49,7 @@
                     </td>
                     <td>{{ $katalog->produk }}</td>
                     <td>{{ $katalog->deskripsi }}</td>
+                    <td>{{ $katalog->ukuran }}</td>
                     <td>{{ $katalog->variant }}</td>
                     <td>{{ $katalog->harga }}</td>
                     <td>
@@ -56,7 +58,10 @@
                             data-bs-toggle="modal" data-bs-target="#editCatalogModal"
                             data-id="{{ $katalog->id }}"
                             data-produk="{{ $katalog->produk }}"
+                            data-ukuran="{{ $katalog->ukuran }}"
                             data-deskripsi="{{ $katalog->deskripsi }}"
+                            data-variant="{{ $katalog->variant }}"
+                            data-harga="{{ $katalog->harga }}"
                             data-image="{{ asset('storage/' . $katalog->image_path) }}">
                         </a>
                         <form action="{{ route('katalog.destroy', $katalog->id) }}" method="POST" class="d-inline delete-form">
@@ -92,7 +97,22 @@
 
                         <div class="mb-3">
                             <label for="variant" class="form-label">Variant</label>
-                            <input type="text" name="variant" id="variant" class="form-control" required>
+                            <select name="variant" id="variant" class="form-control" required>
+                                <option value="original">Original</option>
+                                <option value="pedas">Pedas</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ukuran" class="form-label">Ukuran</label>
+                            <select name="ukuran" id="ukuran" class="form-control" required>
+                                <option value="" disabled>-- Pilih Ukuran --</option>
+                                <option value="80">80g</option>
+                                <option value="100">100g</option>                            
+                                <option value="250">250g</option>
+                                <option value="500">500g</option>
+                                <option value="1000">1Kg</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -147,7 +167,23 @@
 
                         <div class="mb-3">
                             <label for="edit-variant" class="form-label">Variant</label>
-                            <input type="text" name="variant" id="edit-variant" class="form-control" required>
+                            <select name="variant" id="edit-variant" class="form-control" required> 
+                                <option value="" disabled>-- Pilih Variant --</option>
+                                <option value="original">Original</option>
+                                <option value="pedas">Pedas</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="edit-ukuran" class="form-label">Ukuran</label>
+                            <select name="ukuran" id="edit-ukuran" class="form-control" required> 
+                                <option value="" disabled>-- Pilih Ukuran --</option>
+                                <option value="80">80g</option>
+                                <option value="100">100g</option>                            
+                                <option value="250">250g</option>
+                                <option value="500">500g</option>
+                                <option value="1000">1Kg</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -180,8 +216,12 @@
                     // Ambil data dari button yang diklik
                     const id = this.dataset.id;
                     const produk = this.dataset.produk;
+                    const ukuran = this.dataset.ukuran
                     const deskripsi = this.dataset.deskripsi;
                     const image = this.dataset.image;
+                    const variant = this.dataset.variant;
+                    const harga = this.dataset.harga;
+
 
                     // Set data ke modal
                     document.getElementById('edit-catalog-id').value = id;
@@ -189,9 +229,8 @@
                     document.getElementById('edit-deskripsi').value = deskripsi;
                     document.getElementById('edit-variant').value = variant;
                     document.getElementById('edit-harga').value = harga;
+                    document.getElementById('edit-ukuran').value = ukuran;
                     document.getElementById('edit-preview-image').src = image;
-
-                    // Set action form
                     document.getElementById('editCatalogForm').action = '{{ route('katalog.update', '') }}/' + id;  // Sesuaikan dengan route update katalog
                 });
             });
