@@ -34,9 +34,7 @@
                     <th>Gambar</th>
                     <th>Produk</th>
                     <th>Deskripsi</th>
-                    <th>Ukuran</th>
                     <th>Variant</th>
-                    <th>Harga</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -49,9 +47,7 @@
                     </td>
                     <td>{{ $katalog->produk }}</td>
                     <td>{{ $katalog->deskripsi }}</td>
-                    <td>{{ $katalog->ukuran }}</td>
                     <td>{{ $katalog->variant }}</td>
-                    <td>{{ $katalog->harga }}</td>
                     <td>
                         <!-- Button untuk memicu modal edit -->
                         <a href="javascript:void(0);" class="btn btn-sm btn-primary fa-solid fa-pen-to-square edit-button"
@@ -102,24 +98,6 @@
                                 <option value="pedas">Pedas</option>
                             </select>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="ukuran" class="form-label">Ukuran</label>
-                            <select name="ukuran" id="ukuran" class="form-control" required>
-                                <option value="" disabled>-- Pilih Ukuran --</option>
-                                <option value="80">80g</option>
-                                <option value="100">100g</option>                            
-                                <option value="250">250g</option>
-                                <option value="500">500g</option>
-                                <option value="1000">1Kg</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="harga" class="form-label">Harga</label>
-                            <input type="number" name="harga" id="harga" class="form-control" required>
-                        </div>
-
                         <div class="mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
                             <textarea style="resize: none;" name="deskripsi" id="deskripsi" class="form-control" placeholder="Max. 200 karakter" required></textarea>
@@ -175,23 +153,6 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="edit-ukuran" class="form-label">Ukuran</label>
-                            <select name="ukuran" id="edit-ukuran" class="form-control" required> 
-                                <option value="" disabled>-- Pilih Ukuran --</option>
-                                <option value="80">80g</option>
-                                <option value="100">100g</option>                            
-                                <option value="250">250g</option>
-                                <option value="500">500g</option>
-                                <option value="1000">1Kg</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="edit-harga" class="form-label">Harga</label>
-                            <input type="number" name="harga" id="edit-harga" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
                             <label for="edit-image_path" class="form-label">Gambar Produk</label>
                             <div class="mb-2">
                                 <img id="edit-preview-image" src="" class="img-thumbnail" width="200">
@@ -216,11 +177,9 @@
                     // Ambil data dari button yang diklik
                     const id = this.dataset.id;
                     const produk = this.dataset.produk;
-                    const ukuran = this.dataset.ukuran
                     const deskripsi = this.dataset.deskripsi;
                     const image = this.dataset.image;
                     const variant = this.dataset.variant;
-                    const harga = this.dataset.harga;
 
 
                     // Set data ke modal
@@ -228,8 +187,6 @@
                     document.getElementById('edit-produk').value =  produk;
                     document.getElementById('edit-deskripsi').value = deskripsi;
                     document.getElementById('edit-variant').value = variant;
-                    document.getElementById('edit-harga').value = harga;
-                    document.getElementById('edit-ukuran').value = ukuran;
                     document.getElementById('edit-preview-image').src = image;
                     document.getElementById('editCatalogForm').action = '{{ route('katalog.update', '') }}/' + id;  // Sesuaikan dengan route update katalog
                 });

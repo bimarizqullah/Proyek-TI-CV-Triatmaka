@@ -25,8 +25,6 @@ class Catalog extends Model
         'deskripsi',
         'users_id',
         'variant',
-        'ukuran',
-        'harga'
     ];
 
     public static function addCatalog(Request $request)
@@ -35,10 +33,7 @@ class Catalog extends Model
             'users_id'=>Auth::id(),
             'produk' => $request->produk,
             'deskripsi'=>$request->deskripsi,
-            'variant'=>$request->variant,
-            'ukuran'=>$request->ukuran,
-            'harga'=>$request->harga
-
+            'variant'=>$request->variant
         ];
         if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
             $data['image_path'] = $request
@@ -53,9 +48,7 @@ class Catalog extends Model
 
         $catalog->produk = $request->produk;
         $catalog->deskripsi = $request->deskripsi;
-        $catalog->ukuran = $request->ukuran;
         $catalog->variant = $request->variant;
-        $catalog->harga = $request->harga;
         $catalog->users_id = Auth::id();
 
         if ($request->hasFile('image_path') && $request->file('image_path')->isValid()) {
@@ -73,8 +66,6 @@ class Catalog extends Model
             'produk' => 'required|string|min:8',
             'deskripsi' => 'required|string|max:255',
             'variant' => 'required|in:original,pedas',
-            'ukuran' => 'required|in:80,100,250,500,1000',
-            'harga' => 'required|integer'
         ];
 
         if ($isUpdate) {
@@ -97,6 +88,11 @@ class Catalog extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id');
+    }
+
+    public function harga()
+    {
+        return $this->hasMany(Harga::class, 'catalog_id');
     }
 
     public function testimonis()

@@ -40,9 +40,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('variant.index') }}" 
-                       class="nav-link text-dark {{ request()->is('admin/variant*') ? 'active text-white rounded' : '' }}">
-                        <i class="bi bi-person"></i> Variant
+                    <a href="{{route ('harga.index')}}" 
+                       class="nav-link text-dark {{ request()->is('admin/harga*') ? 'active text-white rounded' : '' }}">
+                        <i class="bi bi-person"></i> Harga
                     </a>
                 </li>
             </ul>

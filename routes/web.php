@@ -1,18 +1,16 @@
 <?php
 
-use App\Http\Controllers\FrontendCatalogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HargaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\TestimoniController;
-use App\Http\Controllers\VariantController;
 use App\Http\Middleware\CheckUserStatus;
 use App\Http\Middleware\SuperUser;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Rute Dashboard Frontend
 Route::get('/', [DashboardController::class, 'index']);
@@ -44,7 +42,7 @@ Route::middleware(['auth', CheckUserStatus::class, SuperUser::class])->group(fun
 Route::middleware(['auth', CheckUserStatus::class])->group(function () {
     Route::resource('/admin/katalog', KatalogController::class);
     Route::resource('/admin/testimoni', TestimoniController::class);
-    Route::resource('/admin/variant', VariantController::class);
+    Route::resource('/admin/harga', HargaController::class)->except(['create', 'edit']);
 });
 
 

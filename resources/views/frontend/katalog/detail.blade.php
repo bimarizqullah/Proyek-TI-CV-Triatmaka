@@ -49,9 +49,9 @@
             </div>
 
             <!-- Tombol Buy Now -->
-            <div class="d-flex gap-2 mt-4">
-                <a href="https://wa.me/62895395756124" target="_blank" class="btn btn-primary px-4">
-                    Buy Now
+            <div class="d-flex mt-4">
+                <a href="https://wa.me/62895395756124" target="_blank" class="btn btn-success">
+                    <i class="fa-brands fa-whatsapp mx-3"></i>Buy Now
                 </a>
             </div>
 
