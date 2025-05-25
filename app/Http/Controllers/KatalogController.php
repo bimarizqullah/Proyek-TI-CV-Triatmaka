@@ -41,7 +41,7 @@ class KatalogController extends Controller
     {
         return view('backend.katalog.edit', compact('katalog'));
     }
-    
+
     public function destroy(Catalog $katalog)
     {
         $katalog->delete();
