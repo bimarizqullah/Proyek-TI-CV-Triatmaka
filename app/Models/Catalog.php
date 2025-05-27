@@ -65,7 +65,7 @@ class Catalog extends Model
         $rules = [
             'produk' => 'required|string|min:8',
             'deskripsi' => 'required|string|max:255',
-            'variant' => 'required|in:original,pedas',
+            'variant' => 'required|in:Original,Pedas',
         ];
 
         if ($isUpdate) {
