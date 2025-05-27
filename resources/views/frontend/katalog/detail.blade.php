@@ -1,57 +1,60 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container px-0 my-5 border rounded overflow-hidden">
-    <div class="row g-0">
-        <!-- Gambar Produk -->
-        <div class="col-lg-6 col-md-6 col-12 p-0">
-            <img src="{{ asset('storage/' . $katalog->image_path) }}"
-                alt="{{ $katalog->produk }}"
-                class="w-100 h-120"
-                style="object-fit: cover; display: block;">
-        </div>
-
-        <!-- Detail Produk -->
-        <div class="col-md-5 bg-white shadow-sm p-4">
-            <h5 class="text-success fw-bold">NEW ARRIVAL</h5>
-            <h2 class="fw-bold">{{ $katalog->produk }} ({{$katalog->variant}})</h2>
-
-            <div class="mb-2">
-                <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+<div style="background-color:rgb(248, 204, 43); min-height: 100vh;" class="d-flex align-items-center justify-content-center py-5">
+    <img src="{{ asset('images/sapi-kanan.png') }}" class="position-absolute end-0 bottom-0" data-aos="fade-up"
+        data-aos-delay="0" data-aos-duration="1000" style="max-height: 110%;">
+    <img src="{{ asset('images/sapi-kiri.png') }}" class="position-absolute start-0 bottom-0" data-aos="fade-up"
+        data-aos-delay="0" data-aos-duration="1000" style="max-height: 100%;">
+    <div class="container border rounded-4 shadow-lg bg-white overflow-hidden" style="max-width: 1200px;">
+        <div class="row g-0">
+            <!-- Gambar Produk -->
+            <div class="col-lg-6 col-md-6 col-12 p-4 bg-light d-flex align-items-center justify-content-center">
+                <img src="{{ asset('storage/' . $katalog->image_path) }}"
+                    alt="{{ $katalog->produk }}"
+                    class="img-fluid rounded-3 shadow-sm"
+                    style="max-height: 500px; object-fit: cover;">
             </div>
 
-            
-            <h4 class="fw-bold mb-3"><span id="displayHarga">Rp {{ number_format($katalog->harga->first()->harga ?? 0, 0, ',', '.') }}</span></h4>
+            <!-- Detail Produk -->
+            <div class="col-md-6 p-5">
+                <h6 class="text-success fw-semibold mb-2">NEW ARRIVAL</h6>
+                <h2 class="fw-bold mb-3 text-dark">{{ $katalog->produk }} <small class="text-muted">({{ $katalog->variant }})</small></h2>
 
-            <!-- Tombol Pilih Ukuran -->
-            <h5 class="mb-3">Ukuran (gram):</h5>
-            <div id="ukuranButtons" class="mb-4">
-                @foreach($katalog->harga->unique('ukuran') as $harga)
-                    <button 
-                        class="btn btn-outline-primary me-2 mb-2 ukuran-btn" 
-                        data-ukuran="{{ $harga->ukuran }}">
-                        {{ $harga->ukuran }} gr
-                    </button>
-                @endforeach
-            </div>
+                <div class="mb-3">
+                    <span class="text-warning fs-5">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+                </div>
 
-            <!-- Harga Dinamis -->
+                <h4 class="fw-bold text-danger mb-4"><span id="displayHarga">Rp {{ number_format($katalog->harga->first()->harga ?? 0, 0, ',', '.') }}</span></h4>
 
-            <!-- Deskripsi -->
-            <div class="mb-1 mt-4">
-                <p>{{ $katalog->deskripsi }}</p>
-            </div>
+                <!-- Pilihan Ukuran -->
+                <h5 class="mb-3">Ukuran (gram):</h5>
+                <div id="ukuranButtons" class="mb-4">
+                    @foreach($katalog->harga->unique('ukuran') as $harga)
+                        <button 
+                            class="btn btn-outline-primary me-2 mb-2 ukuran-btn rounded-pill px-4 py-2 fw-medium" 
+                            data-ukuran="{{ $harga->ukuran }}">
+                            {{ $harga->ukuran }} gr
+                        </button>
+                    @endforeach
+                </div>
 
-            <!-- Tombol Buy Now -->
-            <div class="d-flex mt-4">
-                <a id="buyNowBtn" href="https://wa.me/62895395756124" target="_blank" class="btn btn-success">
-                    <i class="fa-brands fa-whatsapp mx-3"></i>Buy Now
+                <!-- Deskripsi -->
+                <div class="mb-4">
+                    <p class="text-secondary" style="line-height: 1.7;">{{ $katalog->deskripsi }}</p>
+                </div>
+
+                <!-- Tombol Buy Now -->
+                <a id="buyNowBtn" href="https://wa.me/62895395756124" target="_blank" class="btn btn-success btn-lg rounded-pill px-4">
+                    <i class="fa-brands fa-whatsapp me-2"></i>Buy Now
                 </a>
-            </div>
 
-            <!-- Tombol Kembali -->
-            <div class="mt-4">
-                <a href="{{ url()->previous() }}" class="btn btn-link text-decoration-none">&larr; Kembali</a>
+                <!-- Kembali -->
+                <div class="mt-4">
+                    <a href="{{ url()->previous() }}" class="btn btn-link text-decoration-none text-muted">
+                        &larr; Kembali
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -76,7 +79,6 @@
 
             displayHarga.textContent = formattedHarga;
 
-            // Update link Buy Now dengan pesan WA sesuai pilihan ukuran dan produk
             const produk = @json($katalog->produk);
             const pesanWA = encodeURIComponent(`Halo, saya ingin pesan produk *${produk}* ukuran *${ukuran} gr* dengan harga *${formattedHarga}*`);
             buyNowBtn.href = `https://wa.me/62895395756124?text=${pesanWA}`;
@@ -85,16 +87,13 @@
 
     ukuranButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Hilangkan kelas active dari semua tombol
             ukuranButtons.forEach(b => b.classList.remove('active'));
-            // Tambah kelas active ke tombol yang diklik
             btn.classList.add('active');
             selectedUkuran = btn.getAttribute('data-ukuran');
             updateHarga(selectedUkuran);
         });
     });
 
-    // Set tombol pertama sebagai default aktif dan tampilkan harga awal
     if (ukuranButtons.length > 0) {
         ukuranButtons[0].classList.add('active');
         selectedUkuran = ukuranButtons[0].getAttribute('data-ukuran');
