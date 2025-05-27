@@ -11,10 +11,10 @@ class KatalogController extends Controller
 {
     public function index(Request $request, Catalog $catalog)
     {
-        $catalogs = Catalog::all();
         $search = $request->input('search');
-        $catalog = Catalog::search($search)->paginate(10);
-        return view('backend.katalog.index', compact('catalog', 'catalogs'));
+        $catalogs = Catalog::search($search)->paginate(10);
+
+        return view('backend.katalog.index', compact('catalogs', 'search'));
     }
 
     public function create()

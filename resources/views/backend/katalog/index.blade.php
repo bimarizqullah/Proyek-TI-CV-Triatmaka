@@ -70,7 +70,7 @@
                 @endforeach
             </tbody>
         </table>
-        <p>Showing {{ $catalog->count() }} entries</p>
+        <p>Showing {{ $catalogs->count() }} entries</p>
     </div>
 
 
@@ -94,8 +94,8 @@
                         <div class="mb-3">
                             <label for="variant" class="form-label">Variant</label>
                             <select name="variant" id="variant" class="form-control" required>
-                                <option value="original">Original</option>
-                                <option value="pedas">Pedas</option>
+                                <option value="Original">Original</option>
+                                <option value="Pedas">Pedas</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -147,8 +147,8 @@
                             <label for="edit-variant" class="form-label">Variant</label>
                             <select name="variant" id="edit-variant" class="form-control" required> 
                                 <option value="" disabled>-- Pilih Variant --</option>
-                                <option value="original">Original</option>
-                                <option value="pedas">Pedas</option>
+                                <option value="Original">Original</option>
+                                <option value="Pedas">Pedas</option>
                             </select>
                         </div>
 
