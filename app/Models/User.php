@@ -83,12 +83,21 @@ class User extends Authenticatable
             'status' => 'required|in:aktif,non-aktif',
             'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ];
+        $messages = [
+            'email.unique' => 'Email sudah terpakai, silakan gunakan email lain.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'name.required' => 'Nama wajib diisi.',
+            'alamat.required' => 'Alamat wajib diisi.',
+            'level.required' => 'Level wajib dipilih.',
+            'status.required' => 'Status wajib dipilih.',
+        ];
 
         if (!$isUpdate) {
             $rules['password'] = 'required|string|min:8';
         }
 
-        return $request->validate($rules);
+        return $request->validate($rules, $messages);
     }
 
     public static function updateUserProfile(Request $request, $id)
@@ -108,16 +117,17 @@ class User extends Authenticatable
         return $user->save();
     }
 
-    public static function validateDataProfile(Request $request, $id = null) {
+    public static function validateDataProfile(Request $request, $id = null)
+    {
         $rules = [
             'name' => 'required|string|max:255',
             'email' => [
                 'required',
-                'email',    
+                'email',
                 Rule::unique('users', 'email')->ignore($id),
             ],
             'alamat' => 'required|string|max:255',
-            'image_path' =>'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ];
 
         return $request->validate($rules);

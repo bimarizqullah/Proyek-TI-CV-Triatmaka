@@ -2,16 +2,18 @@
 
 @section('content')
 @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    <div class="d-none" id="swal-success" data-message="{{ session('success') }}"></div>
 @endif
 
 @if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-        {{ session('error') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="d-none" id="swal-error" data-message="{{ session('error') }}"></div>
+@endif
+
+@if ($errors->any())
+    <div class="d-none" id="swal-validation">
+        @foreach ($errors->all() as $error)
+            <div class="swal-validation-message">{{ $error }}</div>
+        @endforeach
     </div>
 @endif
 
@@ -19,7 +21,7 @@
     <h2>User Management</h2>
     <a href="javascript:void(0);" class="btn btn-warning mb-3 fw-bold" data-bs-toggle="modal"
        data-bs-target="#addUserModal">+ Add User</a>
-       <div class="d-flex justify-content-end mb-3">
+    <div class="d-flex justify-content-end mb-3">
         <form method="GET" action="{{ route('users.index') }}">
             <label>Search:
                 <input type="text" name="search" class="form-control form-control-sm" value="{{ request('search') }}"
@@ -177,6 +179,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Populate modal Edit
         document.querySelectorAll('.edit-user').forEach(button => {
             button.addEventListener('click', function () {
                 document.getElementById('edit-id').value = this.dataset.id;
@@ -189,6 +192,7 @@
             });
         });
 
+        // Konfirmasi delete
         document.querySelectorAll('.delete-button').forEach(button => {
             button.addEventListener('click', function () {
                 let form = this.closest('.delete-form');
@@ -207,6 +211,43 @@
                 });
             });
         });
+
+        // SweetAlert: Success
+        const successAlert = document.getElementById('swal-success');
+        if (successAlert) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: successAlert.dataset.message,
+                confirmButtonColor: '#ffc107'
+            });
+        }
+
+        // SweetAlert: Error
+        const errorAlert = document.getElementById('swal-error');
+        if (errorAlert) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: errorAlert.dataset.message,
+                confirmButtonColor: '#d33'
+            });
+        }
+
+        // SweetAlert: Validation Errors
+        const validationAlert = document.getElementById('swal-validation');
+        if (validationAlert) {
+            let messages = '';
+            validationAlert.querySelectorAll('.swal-validation-message').forEach(el => {
+                messages += `<div>${el.textContent}</div>`;
+            });
+            Swal.fire({
+                icon: 'error',
+                title: 'Validasi Gagal!',
+                html: messages,
+                confirmButtonColor: '#d33'
+            });
+        }
     });
 </script>
 @endsection

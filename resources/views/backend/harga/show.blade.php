@@ -14,15 +14,9 @@
         <thead class="table-warning">
             <tr>
                 <th class="col-md-1">ID</th>
-                <th>
-                    Ukuran
-                </th>
-                <th>
-                    Harga
-                </th>
-                <th class="col-md-1">
-                    Aksi
-                </th>
+                <th>Ukuran</th>
+                <th>Harga</th>
+                <th class="col-md-1">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -39,10 +33,10 @@
                         data-bs-toggle="modal" data-bs-target="#editHargaModal">
                     </button>
 
-                    <form action="{{ route('harga.destroy', $harga->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('harga.destroy', $harga->id) }}" method="POST" class="delete-form" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger delete-button fa-solid fa-trash" onclick="return confirm('Yakin hapus harga ini?')"></button>
+                        <button type="submit" class="btn btn-sm btn-danger delete-button fa-solid fa-trash"></button>
                     </form>
                 </td>
             </tr>
@@ -122,17 +116,58 @@
     </div>
 
     <script>
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#ffc107'
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+                confirmButtonColor: '#d33'
+            });
+        @endif
+
         document.addEventListener('DOMContentLoaded', function () {
-            // Setup edit button modal
+            // Setup tombol edit
             document.querySelectorAll('.edit-button').forEach(button => {
                 button.addEventListener('click', function () {
                     const id = this.getAttribute('data-id');
-                    const ukuran = this.getAttribute('data-ukuran')
+                    const ukuran = this.getAttribute('data-ukuran');
                     const harga = this.getAttribute('data-harga');
                     const form = document.getElementById('editHargaForm');
 
                     form.action = "{{ url('admin/harga') }}/" + id;
                     form.querySelector('#edit-harga').value = harga;
+                    form.querySelector('#edit-ukuran').value = ukuran;
+                });
+            });
+
+            // Setup tombol hapus
+            document.querySelectorAll('.delete-button').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault(); // Cegah submit langsung
+                    let form = this.closest('.delete-form'); // Ambil form terdekat
+
+                    Swal.fire({
+                        title: "Apakah Anda yakin?",
+                        text: "Data Produk akan dihapus secara permanen!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#ffc107",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Ya, hapus"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // Kirim form jika di-confirm
+                        }
+                    });
                 });
             });
         });
