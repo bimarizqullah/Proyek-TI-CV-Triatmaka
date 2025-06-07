@@ -13,7 +13,7 @@
     <!-- Menu Navbar -->
     <div class="collapse navbar-collapse" id="navMenu">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="/beranda">Beranda</a></li>
+        <li class="nav-item"><a class="nav-link" href="/">Beranda</a></li>
         <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
         <li class="nav-item"><a class="nav-link" href="#produk">Produk</a></li>
         <li class="nav-item"><a class="nav-link" href="#kontak">Testimoni</a></li>

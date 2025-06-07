@@ -12,9 +12,9 @@ use App\Http\Controllers\TestimoniController;
 use App\Http\Middleware\CheckUserStatus;
 use App\Http\Middleware\SuperUser;
 
-// Rute Dashboard Frontend
-Route::get('/', [DashboardController::class, 'index']);
-Route::get('/beranda', [DashboardController::class, 'beranda']);
+// // Rute Dashboard Frontend
+// Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'beranda']);
 Route::get('/detail-produk/{id}', [DashboardController::class, 'show'])->name('produk.show');
 
 

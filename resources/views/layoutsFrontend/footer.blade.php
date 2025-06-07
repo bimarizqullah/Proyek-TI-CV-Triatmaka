@@ -9,15 +9,15 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>Email: triatmakaofficial@gmail.com</span>
+                        <span>triatmakaofficial@gmail.com</span>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-whatsapp"></i>
-                        <span>WhatsApp: +62 838 9675 6124</span>
+                        <span>+62 838 9675 6124</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Alamat: Jl.Ardi Manis F4/30, Manisrejo, Taman, Kota Madiun, Jawa Timur, Indonesia</span>
+                        <span>Jl.Ardi Manis F4/30, Manisrejo, Taman, Kota Madiun, Jawa Timur, Indonesia</span>
                     </div>
                 </div>
             </div>
