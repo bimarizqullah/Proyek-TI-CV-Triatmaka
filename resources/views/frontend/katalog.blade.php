@@ -16,7 +16,7 @@
                             <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->produk }}"
                                 class="img-fluid rounded-4">
                             <div class="overlay-text">
-                                <h5 class="fw-bold text-light judul-produk">{{ strtoupper($item->produk) }} ({{$item->variant}})</h5>
+                                <h4 class="fw-bold text-light judul-produk">{{ strtoupper($item->produk) }} ({{strtoupper($item->variant)}})</h4>
                                 <p class="text-light" style="font-size: 0.9rem;">{{ $item->deskripsi }}</p>
                             </div>
                         </div>

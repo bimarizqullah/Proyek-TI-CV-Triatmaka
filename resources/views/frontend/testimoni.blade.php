@@ -16,7 +16,7 @@
                             class="img-fluid rounded-4">
                         <div class="overlay-text">
                             <h5 class="fw-bold text-light judul-produk">{{ strtoupper($item->nama_pelanggan) }}</h5>
-                            <h6 class="text-light" style="font-size: 0.9rem;">Produk: {{ $item->catalog->produk }}</h6>
+                            <h6 class="text-light" style="font-size: 0.9rem;">Produk: {{ $item->catalog->produk }} ({{$item->catalog->variant}})</h6>
                             <p class="text-light">{{($item->deskripsi) }}</p>
                             <p class="text-light" style="font-size: 0.9rem;">
                                 @php
