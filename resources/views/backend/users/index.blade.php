@@ -1,22 +1,6 @@
 @extends('layoutsBackend.app')
 
 @section('content')
-@if(session('success'))
-    <div class="d-none" id="swal-success" data-message="{{ session('success') }}"></div>
-@endif
-
-@if(session('error'))
-    <div class="d-none" id="swal-error" data-message="{{ session('error') }}"></div>
-@endif
-
-@if ($errors->any())
-    <div class="d-none" id="swal-validation">
-        @foreach ($errors->all() as $error)
-            <div class="swal-validation-message">{{ $error }}</div>
-        @endforeach
-    </div>
-@endif
-
 <div class="user mt-4">
     <h2>User Management</h2>
     <a href="javascript:void(0);" class="btn btn-warning mb-3 fw-bold" data-bs-toggle="modal"

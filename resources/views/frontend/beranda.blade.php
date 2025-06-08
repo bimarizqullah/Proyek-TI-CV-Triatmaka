@@ -20,7 +20,7 @@
     <script>
         AOS.init();
 
-        window.addEventListener("scroll", function () {
+        window.addEventListener("scroll", function() {
             const gradient = document.getElementById("scrollGradient");
             const scrollPos = window.scrollY;
             if (scrollPos > 50) {
@@ -29,6 +29,58 @@
                 gradient.style.opacity = 0;
             }
         });
-    </script>
+        document.querySelector("form[role='search']").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const input = this.querySelector("input[type='search']");
+            const keyword = input.value.trim().toLowerCase();
+            if (!keyword) {
+                document.querySelectorAll('.search-section').forEach(section => {
+                    section.style.display = 'block';
+                });
+                return;
+            }
 
+            if (!keyword) return;
+
+            let foundIn = null;
+
+            // Cek di katalog
+            const produkItems = document.querySelectorAll('.produk-item');
+            produkItems.forEach(item => {
+                const data = item.dataset.produk || '';
+                item.style.display = data.includes(keyword) ? 'block' : 'none';
+                if (data.includes(keyword)) foundIn = 'produk';
+            });
+
+            // Cek di testimoni
+            const testiItems = document.querySelectorAll('.testimoni-item');
+            testiItems.forEach(item => {
+                const data = item.dataset.testimoni || '';
+                item.style.display = data.includes(keyword) ? 'block' : 'none';
+                if (data.includes(keyword)) foundIn = 'testimoni';
+            });
+
+            // Cek di tentang
+            const tentangSection = document.getElementById('tentang');
+            const tentangText = tentangSection.innerText.toLowerCase();
+            if (tentangText.includes(keyword)) {
+                foundIn = 'tentang';
+            }
+
+            // Sembunyikan semua section dulu
+            document.querySelectorAll('.search-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Tampilkan hanya section yang ditemukan
+            if (foundIn) {
+                document.getElementById(foundIn).style.display = 'block';
+                document.getElementById(foundIn).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            } else {
+                alert("Tidak ditemukan.");
+            }
+        });
+    </script>
 @endsection

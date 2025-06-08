@@ -77,9 +77,9 @@ class Testimoni extends Model
         ];
 
         if ($isUpdate) {
-            $rules['image_path'] = 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240';
+            $rules['image_path'] = 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096';
         } else {
-            $rules['image_path'] = 'required|image|mimes:jpeg,png,jpg,gif|max:10240';
+            $rules['image_path'] = 'required|image|mimes:jpeg,png,jpg,gif|max:4096';
         }
 
         return $request->validate($rules);

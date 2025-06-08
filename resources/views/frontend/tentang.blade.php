@@ -1,4 +1,4 @@
-<section id="tentang" class="position-relative py-5" style="background-color: #f4d001;">
+<section id="tentang" class="search-section position-relative py-5" style="background-color: #f4d001;">
     <img src="{{ asset('images/sapi-kiri.png') }}" class="position-absolute start-0 bottom-0" data-aos="fade-up"
         data-aos-delay="0" data-aos-duration="1000" style="max-height: 100%;">
     <div class="container position-relative z-2" data-aos="fade-up" data-aos-duration="200">

@@ -1,13 +1,9 @@
 @extends('layoutsBackend.app')
 
 @section('content')
+<div class="price">
     <h2>Harga untuk Produk: {{ $catalog->produk }} ({{$catalog->variant}})</h2>
     <a href="{{ route('harga.index') }}" class="btn btn-secondary mb-3">← Kembali ke daftar katalog</a>
-
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
     <button class=" fw-bold btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#addHargaModal">+ Tambah Harga</button>
 
     <table class="table table-bordered">
@@ -45,7 +41,8 @@
     </table>
 
     <!-- Modal Tambah Harga -->
-    <div class="modal fade" id="addHargaModal" tabindex="-1" aria-labelledby="addHargaModalLabel" aria-hidden="true">
+</div>
+<div class="modal fade" id="addHargaModal" tabindex="-1" aria-labelledby="addHargaModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form method="POST" action="{{ route('harga.store') }}">
                 @csrf
@@ -114,7 +111,6 @@
             </form>
         </div>
     </div>
-
     <script>
         @if(session('success'))
             Swal.fire({

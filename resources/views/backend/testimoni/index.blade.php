@@ -177,6 +177,15 @@
             });
         @endif
 
+        @if ($errors->any())
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Upload!',
+            text: '{{ $errors->first() }} (Gambar tidak boleh lebih dari 4 MB)',
+            confirmButtonColor: '#d33'
+        });
+        @endif
+
         @if(session('error'))
             Swal.fire({
                 icon: 'error',

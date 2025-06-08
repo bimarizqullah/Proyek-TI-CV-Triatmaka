@@ -46,7 +46,7 @@ Route::middleware(['auth', CheckUserStatus::class])->group(function () {
 });
 
 
-
+Route::get('/search', [DashboardController::class, 'search'])->name('search.global');
 Route::middleware('auth')->post('/change-password', [UserController::class, 'changePassword'])->name('password.update');
 
 

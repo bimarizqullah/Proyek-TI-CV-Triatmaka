@@ -1,20 +1,6 @@
 @extends('layoutsBackend.app')
 
 @section('content')
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
     <div class="catalog mt-4">
         <h2>Catalog</h2>
         <button class="btn btn-warning mb-3 fw-bold" data-bs-toggle="modal" data-bs-target="#addCatalogModal">+ Add Produk</button>
@@ -178,6 +164,15 @@
                 text: '{{ session('success') }}',
                 confirmButtonColor: '#ffc107'
             });
+        @endif
+
+        @if ($errors->any())
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Upload!',
+            text: '{{ $errors->first() }} (Gambar tidak boleh lebih dari 4 MB)',
+            confirmButtonColor: '#d33'
+        });
         @endif
 
         @if(session('error'))

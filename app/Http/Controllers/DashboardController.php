@@ -23,4 +23,6 @@ class DashboardController extends Controller
         $katalog = Catalog::with('harga')->findOrFail($id);
         return view('frontend.katalog.detail', compact('katalog'));
     }
+
+    
 }

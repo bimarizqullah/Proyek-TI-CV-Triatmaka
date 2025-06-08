@@ -57,7 +57,7 @@
     animation: fadeIn-X 1.5s forwards;
 }
 
-.catalog,.testimoni, .profile,
+.catalog,.testimoni, .profile,.price,.detail ,
 .user {
     animation: fadeInX 1.5s forwards;
 }
@@ -71,13 +71,22 @@
     animation: fadeIn-X 0.8s forwards;
 }
 
+.price {
+  padding: 20px;
+  background-color: #fff;
+  overflow: visible !important;
+  position: static !important;
+  z-index: auto !important;
+}
+
+
 .announcement,
 .logo {
     animation: fadeInX 2.5s forwards;
 }
 
 .nav-item:hover {
-    border-radius: 20px;
+    border-radius: 30px;
     background-color: #d1a000;
 }
 
@@ -85,12 +94,12 @@
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link:hover {
     background-color: #b69400 !important;
-    border-radius: 20px;
+    border-radius: 30px;
 }
 
 .nav .nav-link.active {
     background-color: #b69400 !important;
-    border-radius: 20px;
+    border-radius: 30px;
 }
 
 .fade-in-section {
@@ -115,6 +124,10 @@
 
 /* FRONTEND */
 /* Katalog */
+
+.search-section {
+    display: none;
+}
 .card-hover {
     background: linear-gradient(to bottom right, rgba(255,255,255,0.8), rgba(255,255,255,0.5));
     backdrop-filter: blur(4px); /* jika mau efek glassmorphism */
