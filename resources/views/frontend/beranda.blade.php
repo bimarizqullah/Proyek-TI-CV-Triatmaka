@@ -23,28 +23,22 @@
         window.addEventListener("scroll", function() {
             const gradient = document.getElementById("scrollGradient");
             const scrollPos = window.scrollY;
-            if (scrollPos > 50) {
-                gradient.style.opacity = 1;
-            } else {
-                gradient.style.opacity = 0;
-            }
+            gradient.style.opacity = scrollPos > 50 ? 1 : 0;
         });
-        document.querySelector("form[role='search']").addEventListener("submit", function(e) {
-            e.preventDefault();
-            const input = this.querySelector("input[type='search']");
-            const keyword = input.value.trim().toLowerCase();
-            if (!keyword) {
-                document.querySelectorAll('.search-section').forEach(section => {
-                    section.style.display = 'block';
-                });
-                return;
-            }
 
-            if (!keyword) return;
+        const searchForm = document.querySelector("form[role='search']");
+        const searchInput = searchForm.querySelector("input[type='search']");
 
+        function resetSections() {
+            document.querySelectorAll('.search-section').forEach(section => {
+                section.style.display = 'block';
+            });
+        }
+
+        function handleSearch(keyword) {
             let foundIn = null;
 
-            // Cek di katalog
+            // Produk
             const produkItems = document.querySelectorAll('.produk-item');
             produkItems.forEach(item => {
                 const data = item.dataset.produk || '';
@@ -52,7 +46,7 @@
                 if (data.includes(keyword)) foundIn = 'produk';
             });
 
-            // Cek di testimoni
+            // Testimoni
             const testiItems = document.querySelectorAll('.testimoni-item');
             testiItems.forEach(item => {
                 const data = item.dataset.testimoni || '';
@@ -60,7 +54,7 @@
                 if (data.includes(keyword)) foundIn = 'testimoni';
             });
 
-            // Cek di tentang
+            // Tentang
             const tentangSection = document.getElementById('tentang');
             const tentangText = tentangSection.innerText.toLowerCase();
             if (tentangText.includes(keyword)) {
@@ -72,7 +66,7 @@
                 section.style.display = 'none';
             });
 
-            // Tampilkan hanya section yang ditemukan
+            // Tampilkan yang ditemukan
             if (foundIn) {
                 document.getElementById(foundIn).style.display = 'block';
                 document.getElementById(foundIn).scrollIntoView({
@@ -81,6 +75,30 @@
             } else {
                 alert("Tidak ditemukan.");
             }
+        }
+
+        // Submit pencarian (tekan Enter)
+        searchForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const keyword = searchInput.value.trim().toLowerCase();
+            if (!keyword) {
+                resetSections();
+            } else {
+                handleSearch(keyword);
+            }
+        });
+
+        // Reset otomatis saat input dikosongkan
+        searchInput.addEventListener("input", function() {
+            const keyword = this.value.trim().toLowerCase();
+            if (!keyword) {
+                resetSections();
+            }
+        });
+
+        // 👉 Tambahkan ini agar saat halaman dimuat, semua section muncul
+        document.addEventListener("DOMContentLoaded", function() {
+            resetSections();
         });
     </script>
 @endsection
